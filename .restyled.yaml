@@ -1,0 +1,26 @@
+# Do anything at all?
+enabled: true
+
+# Push the style fixes directly to the original PR
+auto: false
+
+# Open Restyle PRs?
+pull_requests: true
+
+# Leave comments on the original PR linking to the Restyle PR?
+comments: true
+
+# Set commit statuses on the original PR?
+statuses:
+  # Red status in the case of differences found
+  differences: true
+  # Green status in the case of no differences found
+  no_differences: true
+  # Red status if we encounter errors restyling
+  error: true
+
+# Request review on the Restyle PR?
+request_review: author
+
+restylers:
+- prettier
