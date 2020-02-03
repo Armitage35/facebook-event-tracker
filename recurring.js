@@ -34,7 +34,5 @@ const myPage = 'https://www.facebook.com/0gravite/events';
 		console.log('Link: ' + 'https://facebook.com/' + eventLink[i] + '\n');
 	}
 
-	eventDates.forEach(element => console.log(element))
-
 	await browser.close();
 })();
