@@ -7,9 +7,6 @@ const myPage = 'https://www.facebook.com/0gravite/events';
 	const page = await browser.newPage();
 	await page.goto(myPage);
 
-	const innerHTML = await page.evaluate(() => document.querySelector('#recurring_events_card').innerHTML);
-	// console.log(innerHTML);
-
 	const eventTitles = await page.evaluate(
 		() => [...document.querySelectorAll('._2l3f')].map(elem => elem.innerText.replace(/\n/g, ''))
 		);
