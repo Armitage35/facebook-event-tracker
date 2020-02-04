@@ -4,7 +4,7 @@
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Armitage35/facebook-event-tracker/blob/dev/LICENSE)
 [![CodeFactor](https://www.codefactor.io/repository/github/armitage35/facebook-event-tracker/badge)](https://www.codefactor.io/repository/github/armitage35/facebook-event-tracker)
 
-## What is it?
+## What is it
 
 This tool lets you parse Facebook pages to track their events. This is very useful for both terminal nerds as well as for people who just don't have a Facebook account but still want to keep track of upcoming events.
 
