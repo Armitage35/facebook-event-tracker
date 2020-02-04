@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const terminalLink = require('terminal-link');
 
 const myPage = 'https://www.facebook.com/pg/brasserieboswell/events';
 
@@ -22,7 +23,7 @@ const myPage = 'https://www.facebook.com/pg/brasserieboswell/events';
 	for (let i = 0; i < eventTitles.length; i++){
 		console.log('Title: ' + eventTitles[i]);
 		console.log('Date: ' + eventDates[i]);
-		console.log('Link: ' + 'https://facebook.com/' + eventLink[i] + '\n');
+		console.log(terminalLink('Link to the event:', 'https://facebook.com/' + eventLink[i]));
 	}
 
 	await browser.close();
