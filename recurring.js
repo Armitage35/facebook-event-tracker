@@ -13,7 +13,9 @@ const myPage = 'https://www.facebook.com/0gravite/events';
 	let events = {};
 
 	events.titles = await page.evaluate(
-		() => [...document.querySelectorAll('._2l3f')].map(elem => elem.innerText.replace(/\n/g, ''))
+		() => {
+			[...document.querySelectorAll('._2l3f')].map(elem => elem.innerText.replace(/\n/g, ''));
+		}
 	);
 
 	events.descriptions = await page.evaluate(
@@ -25,11 +27,18 @@ const myPage = 'https://www.facebook.com/0gravite/events';
 		() => [...document.querySelectorAll('._5x8v')].map(elem => elem.innerText.replace(/\n/g, ''))
 	);
 
-	events.link= await page.evaluate(
+	events.link = await page.evaluate(
 		() => [...document.querySelectorAll('._1b-b > a')].map(elem => elem.getAttribute('href'))
 	);
 
-	displayEvents(events);
+	// Counts how many recurring events there are in the page
+	const recurringEventCount = await page.evaluate(
+		() => [...document.querySelectorAll('._j6k')].map(elem => elem.innerHTML)
+	);
+
+	console.log(recurringEventCount.length);
+
+	// displayEvents(events);
 
 	await browser.close();
 })();
