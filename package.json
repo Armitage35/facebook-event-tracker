@@ -15,7 +15,7 @@
 		"terminal-link": "^2.1.1"
 	},
 	"scripts": {
-		"start": "node cli.js"
+		"start": "node recurring.js"
 	},
 	"devDependencies": {
 		"eslint": "^6.8.0",

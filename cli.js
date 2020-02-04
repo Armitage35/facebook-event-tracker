@@ -28,7 +28,7 @@ const myPage = 'https://www.facebook.com/pg/brasserieboswell/events';
 		console.log(
 			chalk.blue(
 				chalk.underline(
-					terminalLink('Link to the event', 'https://facebook.com/' + eventLink[i])
+					terminalLink('Link to the event', 'https://facebook.com' + eventLink[i])
 				)
 			)
 		);

@@ -10,36 +10,42 @@ const myPage = 'https://www.facebook.com/0gravite/events';
 	const page = await browser.newPage();
 	await page.goto(myPage);
 
-	const eventTitles = await page.evaluate(
+	let events = {};
+
+	events.titles = await page.evaluate(
 		() => [...document.querySelectorAll('._2l3f')].map(elem => elem.innerText.replace(/\n/g, ''))
 	);
 
-	const eventDescriptions = await page.evaluate(
+	events.descriptions = await page.evaluate(
 		() => [...document.querySelectorAll('._4etw')].map(elem => elem.innerText.replace(/\n/g, '').replace('More',''))
 	);
 
 	// todo: display every dates for this event. Not just the first one
-	const eventDates = await page.evaluate(
+	events.dates = await page.evaluate(
 		() => [...document.querySelectorAll('._5x8v')].map(elem => elem.innerText.replace(/\n/g, ''))
 	);
 
-	const eventLink = await page.evaluate(
+	events.link= await page.evaluate(
 		() => [...document.querySelectorAll('._1b-b > a')].map(elem => elem.getAttribute('href'))
 	);
 
-	for (let i = 0; i < eventTitles.length; i++){
-		console.log('Title: ' + eventTitles[i]);
-		console.log('Description: ' + eventDescriptions[i]);
-		console.log('Date: ' + eventDates[i]);
+	displayEvents(events);
+
+	await browser.close();
+})();
+
+const displayEvents = (events) => {
+	for (let i = 0; i < events.titles.length; i++){
+		console.log('Title: ' + events.titles[i]);
+		console.log('Description: ' + events.descriptions[i]);
+		console.log('Date: ' + events.dates[i]);
 		console.log(
 			chalk.blue(
 				chalk.underline(
-					terminalLink('Link to the event', 'https://facebook.com/' + eventLink[i])
+					terminalLink('Link to the event', 'https://facebook.com' + events.link[i])
 				)
 			)
 		);
 		console.log('\n');
 	}
-
-	await browser.close();
-})();
+};
