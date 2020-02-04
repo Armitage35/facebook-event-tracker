@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const terminalLink = require('terminal-link');
+const chalk = require('chalk');
 
 const myPage = 'https://www.facebook.com/0gravite/events';
 
@@ -29,7 +30,8 @@ const myPage = 'https://www.facebook.com/0gravite/events';
 		console.log('Title: ' + eventTitles[i]);
 		console.log('Description: ' + eventDescriptions[i]);
 		console.log('Date: ' + eventDates[i]);
-		console.log(terminalLink('Link to the event:', 'https://facebook.com/' + eventLink[i]));
+		console.log(chalk.blue(chalk.underline(terminalLink('Link to the event', 'https://facebook.com/' + eventLink[i]))));
+		console.log('\n');
 	}
 
 	await browser.close();
