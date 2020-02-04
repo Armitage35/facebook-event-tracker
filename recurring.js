@@ -4,6 +4,7 @@ const chalk = require('chalk');
 
 const myPage = 'https://www.facebook.com/0gravite/events';
 
+// Functions on recurring events
 (async () => {
 	const browser = await puppeteer.launch();
 	const page = await browser.newPage();
@@ -11,7 +12,7 @@ const myPage = 'https://www.facebook.com/0gravite/events';
 
 	const eventTitles = await page.evaluate(
 		() => [...document.querySelectorAll('._2l3f')].map(elem => elem.innerText.replace(/\n/g, ''))
-		);
+	);
 
 	const eventDescriptions = await page.evaluate(
 		() => [...document.querySelectorAll('._4etw')].map(elem => elem.innerText.replace(/\n/g, '').replace('More',''))
@@ -30,7 +31,13 @@ const myPage = 'https://www.facebook.com/0gravite/events';
 		console.log('Title: ' + eventTitles[i]);
 		console.log('Description: ' + eventDescriptions[i]);
 		console.log('Date: ' + eventDates[i]);
-		console.log(chalk.blue(chalk.underline(terminalLink('Link to the event', 'https://facebook.com/' + eventLink[i]))));
+		console.log(
+			chalk.blue(
+				chalk.underline(
+					terminalLink('Link to the event', 'https://facebook.com/' + eventLink[i])
+				)
+			)
+		);
 		console.log('\n');
 	}
 
