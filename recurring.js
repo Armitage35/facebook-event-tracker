@@ -1,13 +1,19 @@
 const puppeteer = require('puppeteer');
 const terminalLink = require('terminal-link');
 const chalk = require('chalk');
+const ora = require('ora');
 
 const parallel = 4;
 const pages = ['https://www.facebook.com/0gravite/events'];
 
 const crawlFacebook = async (pages, parallel) => {
 
-	console.log('Crawling launched 🚀' + '\n');
+	const spinner = ora().start();
+
+	setTimeout(() => {
+		spinner.color = 'blue';
+		spinner.text = 'Crawling launched 🚀';
+	}, 1000);
 
 	// eslint-disable-next-line no-unused-vars
 	let k = 0;
@@ -35,6 +41,7 @@ const crawlFacebook = async (pages, parallel) => {
 					try {
 						await page.goto(pages[elem]);
 
+						// todo: clean this shit up
 						events.recurring.titles = await page.evaluate(
 							() => [...document.querySelectorAll('._2l3f')].map(elem => elem.innerText.replace(/\n/g, ''))
 						);
@@ -63,6 +70,7 @@ const crawlFacebook = async (pages, parallel) => {
 							() => [...document.querySelectorAll('._4dmk > a')].map(elem => elem.getAttribute('href'))
 						);
 
+						spinner.stop();
 						displayEvents(events);
 						// console.log(events);
 
