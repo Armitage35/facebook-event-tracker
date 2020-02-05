@@ -36,15 +36,15 @@ const crawlFacebook = async (pages, parallel) => {
 							() => [...document.querySelectorAll('._2l3f')].map(elem => elem.innerText.replace(/\n/g, ''))
 						);
 
-						events.descriptions = await page.evaluate (
-							() => [...document.querySelectorAll('._4etw')].map(elem => elem.innerText.replace(/\n/g, '').replace('More',''))
+						events.descriptions = await page.evaluate(
+							() => [...document.querySelectorAll('._4etw')].map(elem => elem.innerText.replace(/\n/g, '').replace('More', ''))
 						);
 
-						events.dates = await page.evaluate (
+						events.dates = await page.evaluate(
 							() => [...document.querySelectorAll('._5x8v')].map(elem => elem.innerText.replace(/\n/g, ''))
 						);
 
-						events.link = await page.evaluate (
+						events.link = await page.evaluate(
 							() => [...document.querySelectorAll('._1b-b > a')].map(elem => elem.getAttribute('href'))
 						);
 
@@ -73,12 +73,12 @@ const displayEvents = (events) => {
 		for (let i = 0; i < events.descriptions.length; i++) {
 			let j = i + 1;
 
-			console.log('Title: ' + events.titles[i]);
-			console.log('Description: ' + events.descriptions[i]);
+			console.log(chalk.underline('Title:') + ' ' + events.titles[i]);
+			console.log(chalk.underline('Description:') + ' ' + events.descriptions[i]);
 			if (i === 0) {
-				console.log('Date: ' + events.dates[i] + ' & ' + events.dates[j]);
+				console.log(chalk.underline('Date:') + ' ' + events.dates[i] + ' & ' + events.dates[j]);
 			} else {
-				console.log('Date: ' + events.dates[i * 2] + ' & ' + events.dates[ i * 2 + 1]);
+				console.log(chalk.underline('Date:') + ' ' + events.dates[i * 2] + ' & ' + events.dates[i * 2 + 1]);
 			}
 			console.log(
 				chalk.blue(
