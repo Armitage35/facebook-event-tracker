@@ -2,14 +2,15 @@ const puppeteer = require('puppeteer');
 const terminalLink = require('terminal-link');
 const chalk = require('chalk');
 const ora = require('ora');
+const clear = require('clear');
 
 const parallel = 4;
 const pages = ['https://www.facebook.com/0gravite/events'];
 
 const crawlFacebook = async (pages, parallel) => {
+	clear();
 
-	const spinner = ora().start();
-
+	const spinner = ora('Crawling launched 🚀').start();
 	setTimeout(() => {
 		spinner.color = 'blue';
 		spinner.text = 'Crawling launched 🚀';
