@@ -49,6 +49,7 @@ const crawlFacebook = async (pages, parallel) => {
 						);
 
 						displayEvents(events);
+						// console.log(events);
 
 					} catch (err) {
 						console.log('\n' + '❌ Sorry! I couldn\'t keep parse this page');
@@ -70,9 +71,15 @@ const displayEvents = (events) => {
 
 	try {
 		for (let i = 0; i < events.descriptions.length; i++) {
+			let j = i + 1;
+
 			console.log('Title: ' + events.titles[i]);
 			console.log('Description: ' + events.descriptions[i]);
-			console.log('Date: ' + events.dates[i]);
+			if (i === 0) {
+				console.log('Date: ' + events.dates[i] + ' & ' + events.dates[j]);
+			} else {
+				console.log('Date: ' + events.dates[i * 2] + ' & ' + events.dates[ i * 2 + 1]);
+			}
 			console.log(
 				chalk.blue(
 					chalk.underline(
