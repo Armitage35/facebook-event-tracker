@@ -15,11 +15,7 @@ const crawlFacebook = async (pages, parallel) => {
 		spinner.text = 'Crawling launched 🚀';
 	}, 1000);
 
-	// eslint-disable-next-line no-unused-vars
-	let k = 0;
-
 	for (let i = 0; i < pages.length; i += parallel) {
-		k++;
 
 		const browser = await puppeteer.launch();
 		const context = await browser.createIncognitoBrowserContext();
