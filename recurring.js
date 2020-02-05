@@ -23,6 +23,7 @@ const crawlFacebook = async (pages, parallel) => {
 		let events = {};
 
 		const promises = [];
+
 		for (let j = 0; j < parallel; j++) {
 			let elem = i + j;
 
@@ -31,30 +32,27 @@ const crawlFacebook = async (pages, parallel) => {
 					try {
 						await page.goto(pages[elem]);
 
-						// titles seem broken
 						events.titles = await page.evaluate(
-							() => {
-								[...document.querySelectorAll('._2l3f')].map(elem => elem.innerText.replace(/\n/g, ''));
-							}
+							() => [...document.querySelectorAll('._2l3f')].map(elem => elem.innerText.replace(/\n/g, ''))
 						);
 
-						events.descriptions = await page.evaluate(
+						events.descriptions = await page.evaluate (
 							() => [...document.querySelectorAll('._4etw')].map(elem => elem.innerText.replace(/\n/g, '').replace('More',''))
 						);
 
-						events.dates = await page.evaluate(
+						events.dates = await page.evaluate (
 							() => [...document.querySelectorAll('._5x8v')].map(elem => elem.innerText.replace(/\n/g, ''))
 						);
 
-						events.link = await page.evaluate(
+						events.link = await page.evaluate (
 							() => [...document.querySelectorAll('._1b-b > a')].map(elem => elem.getAttribute('href'))
 						);
 
+						displayEvents(events);
+
 					} catch (err) {
-						console.log('❌ Sorry! I couldn\'t keep parse this page');
+						console.log('\n' + '❌ Sorry! I couldn\'t keep parse this page');
 					}
-					console.log(events);
-					displayEvents(events);
 				}));
 			}
 		}
@@ -69,8 +67,9 @@ const crawlFacebook = async (pages, parallel) => {
 crawlFacebook(pages, parallel);
 
 const displayEvents = (events) => {
+
 	try {
-		for (let i = 0; i < events.link.length; i++){
+		for (let i = 0; i < events.descriptions.length; i++) {
 			console.log('Title: ' + events.titles[i]);
 			console.log('Description: ' + events.descriptions[i]);
 			console.log('Date: ' + events.dates[i]);
@@ -84,6 +83,6 @@ const displayEvents = (events) => {
 			console.log('\n');
 		}
 	} catch (err) {
-		console.log('Sorry, it seems we encountered an issue... Crap.');
+		console.log(err);
 	}
 };
