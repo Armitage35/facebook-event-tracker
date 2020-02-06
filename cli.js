@@ -4,46 +4,13 @@ const chalk = require('chalk');
 const ora = require('ora');
 const clear = require('clear');
 
+const facebookConfiguration = require('./src/facebookConfig');
+
 const parallel = 1;
 // Todo: display the page's name before displaying the results
 const pages = ['https://www.facebook.com/0gravite/events', 'https://www.facebook.com/pg/brasserieboswell/events'];
 
-const configuration = [
-	{
-		recurringEvent: {
-			title: {
-				selector: '._2l3f',
-				destination: 'recurringEvents.titles'
-			},
-			description: {
-				selector: '._4etw',
-				destination: 'recurringEvents.descriptions'
-			},
-			dates: {
-				selector: '._5x8v',
-				destination: 'recurringEvents.link'
-			},
-			link: {
-				selector: '._1b-b > a',
-				destination: 'recurringEvents.dates'
-			},
-		},
-		pastAndUpcomingEvents: {
-			title: {
-				selector: '._50f7',
-				destination: 'pastAndUpcoming.titles'
-			},
-			dates: {
-				selector: '._5a5i',
-				destination: 'pastAndUpcoming.dates'
-			},
-			link: {
-				selector: '._4dmk > a',
-				destination: 'pastAndUpcoming.link'
-			},
-		}
-	}
-];
+
 
 const crawlFacebook = async (pages, parallel) => {
 	clear();
