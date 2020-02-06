@@ -36,7 +36,6 @@ const askForPreferences = () => {
 			return val.toLowerCase();
 		}
 	}]).then(answers => {
-		console.log(JSON.stringify(answers, null, '  '));
 		if (answers.preferences === 'add pages to follow') {
 			addPagesToFollow();
 		} else {
@@ -48,7 +47,7 @@ const askForPreferences = () => {
 const addPagesToFollow = () => {
 	inquirer.prompt([{
 		type: 'input',
-		name: 'add pages',
+		name: 'pages',
 		message: 'input the individual pages you want to follow separated with a comma',
 		validate: function (value) {
 			let pass = value.match(
@@ -60,7 +59,28 @@ const addPagesToFollow = () => {
 			return 'Please enter a valid URL';
 		}
 	}]).then(answers => {
+		pages = [...pages, answers.pages];
+		addAdditionalPagesToFollow();
+	});
+};
+
+const addAdditionalPagesToFollow = () => {
+	inquirer.prompt([{
+		type: 'list',
+		name: 'nextStep',
+		message: 'Do you want to add other pages to follow?',
+		choices: ['Yes', 'No'],
+		filter: function (val) {
+			return val.toLowerCase();
+		}
+	}]).then(answers => {
 		console.log(JSON.stringify(answers, null, '  '));
+		if (answers.nextStep === 'yes') {
+			addPagesToFollow();
+		} else {
+			console.log(pages);
+			crawlFacebook();
+		}
 	});
 };
 
