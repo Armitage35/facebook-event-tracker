@@ -4,10 +4,7 @@ const chalk = require('chalk');
 const ora = require('ora');
 const clear = require('clear');
 
-const facebookConfiguration = require('./src/facebookConfig');
-
 const parallel = 1;
-// Todo: display the page's name before displaying the results
 const pages = ['https://www.facebook.com/0gravite/events', 'https://www.facebook.com/pg/brasserieboswell/events'];
 
 
@@ -43,7 +40,6 @@ const crawlFacebook = async (pages, parallel) => {
 					try {
 						await page.goto(pages[elem]);
 
-						// todo: clean this shit up
 						events.recurringEvents.titles = await page.evaluate(
 							() => [...document.querySelectorAll('._2l3f')].map(elem => elem.innerText.replace(/\n/g, ''))
 						);
@@ -72,13 +68,11 @@ const crawlFacebook = async (pages, parallel) => {
 							() => [...document.querySelectorAll('._4dmk > a')].map(elem => elem.getAttribute('href'))
 						);
 
-						clear();
 						console.log(await page.title() + '\n');
 						spinner.stop();
 						displayEvents(events);
 
 					} catch (err) {
-						// console.log(err);
 						console.log('\n' + '❌ Sorry! I couldn\'t keep parse this page');
 					}
 				}));
@@ -95,7 +89,6 @@ const crawlFacebook = async (pages, parallel) => {
 crawlFacebook(pages, parallel);
 
 const displayEvents = (events) => {
-	// todo: clean this shit up
 	try {
 		for (let i = 0; i < events.recurringEvents.descriptions.length; i++) {
 			let j = i + 1;
