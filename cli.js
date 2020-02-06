@@ -3,9 +3,43 @@ const terminalLink = require('terminal-link');
 const chalk = require('chalk');
 const ora = require('ora');
 const clear = require('clear');
+const inquirer = require('inquirer');
 
 const parallel = 1;
-const {pages} = require('./src/pages');
+const { pages } = require('./src/pages');
+
+
+inquirer.prompt([
+	{
+		type: 'list',
+		name: 'Welcome',
+		message: 'What do you want to do?',
+		choices: [
+			'Crawl for events',
+			'Update my preferences',
+		]
+	}
+])
+	.then(answers => {
+		console.log(JSON.stringify(answers, null, '  '));
+		if (answers.Welcome === 'Update my preferences') {
+			inquirer.prompt([
+				{
+					type: 'list',
+					name: 'size',
+					message: 'How shall we do this?',
+					choices: ['Reset my existing preferences', 'Add pages to follow', 'Remove pages'],
+					filter: function(val) {
+						return val.toLowerCase();
+					}
+				}
+			]).then(answers => {
+				console.log(answers);
+			});
+		} else {
+			crawlFacebook(pages, parallel);
+		}
+	});
 
 const crawlFacebook = async (pages, parallel) => {
 	clear();
@@ -83,8 +117,6 @@ const crawlFacebook = async (pages, parallel) => {
 
 	console.log('\n' + 'Crawling completed 👍');
 };
-
-crawlFacebook(pages, parallel);
 
 const displayEvents = (events) => {
 	try {
