@@ -8,38 +8,42 @@ const inquirer = require('inquirer');
 const parallel = 1;
 const { pages } = require('./src/pages');
 
-
-inquirer.prompt([
-	{
-		type: 'list',
-		name: 'Welcome',
-		message: 'What do you want to do?',
-		choices: [
-			'Crawl for events',
-			'Update my preferences',
-		]
-	}
-])
-	.then(answers => {
-		console.log(JSON.stringify(answers, null, '  '));
-		if (answers.Welcome === 'Update my preferences') {
-			inquirer.prompt([
-				{
-					type: 'list',
-					name: 'size',
-					message: 'How shall we do this?',
-					choices: ['Reset my existing preferences', 'Add pages to follow', 'Remove pages'],
-					filter: function(val) {
-						return val.toLowerCase();
-					}
-				}
-			]).then(answers => {
-				console.log(answers);
-			});
-		} else {
-			crawlFacebook(pages, parallel);
+const welcomeUser = () => {
+	inquirer.prompt([
+		{
+			type: 'list',
+			name: 'welcome',
+			message: 'What do you want to do?',
+			choices: ['Crawl for events', 'Update my preferences']
 		}
+	])
+		.then(answers => {
+			if (answers.welcome === 'Update my preferences') {
+				askForPreferences();
+			} else {
+				crawlFacebook(pages, parallel);
+			}
+		});
+};
+
+const askForPreferences = () => {
+	inquirer.prompt([
+		{
+			type: 'list',
+			name: 'preferences',
+			message: 'How shall we do this?',
+			choices: ['Reset my existing preferences', 'Add pages to follow', 'Remove pages'],
+			filter: function(val) {
+				return val.toLowerCase();
+			}
+		}
+	]).then(answers => {
+		console.log(JSON.stringify(answers, null, '  '));
 	});
+};
+
+welcomeUser();
+
 
 const crawlFacebook = async (pages, parallel) => {
 	clear();
