@@ -5,9 +5,7 @@ const ora = require('ora');
 const clear = require('clear');
 
 const parallel = 1;
-const pages = ['https://www.facebook.com/0gravite/events', 'https://www.facebook.com/pg/brasserieboswell/events'];
-
-
+const {pages} = require('./src/pages');
 
 const crawlFacebook = async (pages, parallel) => {
 	clear();
@@ -68,7 +66,7 @@ const crawlFacebook = async (pages, parallel) => {
 							() => [...document.querySelectorAll('._4dmk > a')].map(elem => elem.getAttribute('href'))
 						);
 
-						console.log(await page.title() + '\n');
+						console.log(chalk.bold(await page.title() + '\n'));
 						spinner.stop();
 						displayEvents(events);
 
