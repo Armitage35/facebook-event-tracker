@@ -11,15 +11,36 @@ const pages = ['https://www.facebook.com/0gravite/events', 'https://www.facebook
 const configuration = [
 	{
 		recurringEvent: {
-			title: '._2l3f',
-			description: '._4etw',
-			dates: '._5x8v',
-			link: '._1b-b > a',
+			title: {
+				selector: '._2l3f',
+				destination: 'recurringEvents.titles'
+			},
+			description: {
+				selector: '._4etw',
+				destination: 'recurringEvents.descriptions'
+			},
+			dates: {
+				selector: '._5x8v',
+				destination: 'recurringEvents.link'
+			},
+			link: {
+				selector: '._1b-b > a',
+				destination: 'recurringEvents.dates'
+			},
 		},
 		pastAndUpcomingEvents: {
-			title: '._50f7',
-			dates: '._5a5i',
-			link: '._4dmk > a'
+			title: {
+				selector: '._50f7',
+				destination: 'pastAndUpcoming.titles'
+			},
+			dates: {
+				selector: '._5a5i',
+				destination: 'pastAndUpcoming.dates'
+			},
+			link: {
+				selector: '._4dmk > a',
+				destination: 'pastAndUpcoming.link'
+			},
 		}
 	}
 ];
