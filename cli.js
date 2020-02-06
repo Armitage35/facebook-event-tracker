@@ -56,9 +56,6 @@ const crawlFacebook = async (pages, parallel) => {
 						await page.goto(pages[elem]);
 
 						// todo: clean this shit up
-
-
-
 						events.recurringEvents.titles = await page.evaluate(
 							() => [...document.querySelectorAll('._2l3f')].map(elem => elem.innerText.replace(/\n/g, ''))
 						);
@@ -91,10 +88,9 @@ const crawlFacebook = async (pages, parallel) => {
 						console.log(await page.title() + '\n');
 						spinner.stop();
 						displayEvents(events);
-						// console.log(events);
 
 					} catch (err) {
-						console.log(err);
+						// console.log(err);
 						console.log('\n' + '❌ Sorry! I couldn\'t keep parse this page');
 					}
 				}));
@@ -111,7 +107,7 @@ const crawlFacebook = async (pages, parallel) => {
 crawlFacebook(pages, parallel);
 
 const displayEvents = (events) => {
-
+	// todo: clean this shit up
 	try {
 		for (let i = 0; i < events.recurringEvents.descriptions.length; i++) {
 			let j = i + 1;
