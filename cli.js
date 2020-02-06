@@ -7,16 +7,17 @@ const inquirer = require('inquirer');
 
 const parallel = 1;
 let { pages } = require('./src/pages');
+const strings = require('./src/strings.json');
 
 const welcomeUser = () => {
 	inquirer.prompt([{
 		type: 'list',
 		name: 'welcome',
-		message: 'What do you want to do?',
-		choices: ['Crawl for events', 'Update my preferences']
+		message: strings.english.welcomeWizzard.welcome.question,
+		choices: strings.english.welcomeWizzard.welcome.answers
 	}])
 		.then(answers => {
-			if (answers.welcome === 'Update my preferences') {
+			if (answers.welcome === strings.english.welcomeWizzard.welcome.answers[1]) {
 				askForPreferences();
 			} else {
 				crawlFacebook(pages, parallel);
@@ -28,15 +29,12 @@ const askForPreferences = () => {
 	inquirer.prompt([{
 		type: 'list',
 		name: 'preferences',
-		message: 'How shall we do this?',
-		choices: ['Reset my existing preferences', 'Add pages to follow', 'Remove individual pages'],
-		filter: function (val) {
-			return val.toLowerCase();
-		}
+		message: strings.english.welcomeWizzard.preferencePanel.question,
+		choices: strings.english.welcomeWizzard.preferencePanel.answers
 	}]).then(answers => {
-		if (answers.preferences === 'add pages to follow') {
+		if (answers.preferences === strings.english.welcomeWizzard.preferencePanel.answers[1]) {
 			addPagesToFollow();
-		} else if (answers.preferences === 'reset my existing preferences') {
+		} else if (answers.preferences === strings.english.welcomeWizzard.preferencePanel.answers[0]) {
 			pages = [];
 			addPagesToFollow();
 		} else {
@@ -56,8 +54,9 @@ const addPagesToFollow = () => {
 			);
 			if (pass) {
 				return true;
+			} else {
+				return 'Please enter a valid URL';
 			}
-			return 'Please enter a valid URL';
 		}
 	}]).then(answers => {
 		pages = [...pages, answers.pages];

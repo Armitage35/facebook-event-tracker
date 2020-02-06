@@ -1,0 +1,21 @@
+{
+	"english": {
+		"welcomeWizzard": {
+			"welcome": {
+				"question": "What do you want to do?",
+				"answers": [
+					"Crawl for events",
+					"Update my preferences"
+				]
+			},
+			"preferencePanel": {
+				"question": "How shall we do this?",
+				"answers": [
+					"Reset my existing preferences",
+					"Add pages to follow",
+					"Remove individual pages"
+				]
+			}
+		}
+	}
+}

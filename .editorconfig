@@ -19,3 +19,6 @@ editor.tabSize = 2
 [*.yml]
 indent_style = spaces
 indent_size = 2
+
+[*.json]
+indent_size = 2
