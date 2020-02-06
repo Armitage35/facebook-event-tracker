@@ -6,17 +6,17 @@ const clear = require('clear');
 const inquirer = require('inquirer');
 
 const parallel = 1;
-const { pages } = require('./src/pages');
+let {
+	pages
+} = require('./src/pages');
 
 const welcomeUser = () => {
-	inquirer.prompt([
-		{
-			type: 'list',
-			name: 'welcome',
-			message: 'What do you want to do?',
-			choices: ['Crawl for events', 'Update my preferences']
-		}
-	])
+	inquirer.prompt([{
+		type: 'list',
+		name: 'welcome',
+		message: 'What do you want to do?',
+		choices: ['Crawl for events', 'Update my preferences']
+	}])
 		.then(answers => {
 			if (answers.welcome === 'Update my preferences') {
 				askForPreferences();
@@ -27,23 +27,44 @@ const welcomeUser = () => {
 };
 
 const askForPreferences = () => {
-	inquirer.prompt([
-		{
-			type: 'list',
-			name: 'preferences',
-			message: 'How shall we do this?',
-			choices: ['Reset my existing preferences', 'Add pages to follow', 'Remove pages'],
-			filter: function(val) {
-				return val.toLowerCase();
-			}
+	inquirer.prompt([{
+		type: 'list',
+		name: 'preferences',
+		message: 'How shall we do this?',
+		choices: ['Reset my existing preferences', 'Add pages to follow', 'Remove individual pages'],
+		filter: function (val) {
+			return val.toLowerCase();
 		}
-	]).then(answers => {
+	}]).then(answers => {
+		console.log(JSON.stringify(answers, null, '  '));
+		if (answers.preferences === 'add pages to follow') {
+			addPagesToFollow();
+		} else {
+			console.log(answers);
+		}
+	});
+};
+
+const addPagesToFollow = () => {
+	inquirer.prompt([{
+		type: 'input',
+		name: 'add pages',
+		message: 'input the individual pages you want to follow separated with a comma',
+		validate: function (value) {
+			let pass = value.match(
+				/[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/
+			);
+			if (pass) {
+				return true;
+			}
+			return 'Please enter a valid URL';
+		}
+	}]).then(answers => {
 		console.log(JSON.stringify(answers, null, '  '));
 	});
 };
 
 welcomeUser();
-
 
 const crawlFacebook = async (pages, parallel) => {
 	clear();
