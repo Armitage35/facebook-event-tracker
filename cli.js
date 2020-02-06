@@ -6,9 +6,7 @@ const clear = require('clear');
 const inquirer = require('inquirer');
 
 const parallel = 1;
-let {
-	pages
-} = require('./src/pages');
+let { pages } = require('./src/pages');
 
 const welcomeUser = () => {
 	inquirer.prompt([{
@@ -37,6 +35,9 @@ const askForPreferences = () => {
 		}
 	}]).then(answers => {
 		if (answers.preferences === 'add pages to follow') {
+			addPagesToFollow();
+		} else if (answers.preferences === 'reset my existing preferences') {
+			pages = [];
 			addPagesToFollow();
 		} else {
 			console.log(answers);
