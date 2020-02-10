@@ -17,7 +17,7 @@
 				]
 			},
 			"addPages": {
-				"question": "Input the individual pages you want to follow separated with a comma",
+				"question": "Input the individual pages you want to follow",
 				"inputValidation": "Please enter a valid URL",
 				"nextStep": {
 					"question": "Do you want to add other pages to follow?",

@@ -11,8 +11,16 @@ const strings = require('./src/strings.json');
 
 let pages = fs.readFile('./src/pages.csv', 'utf8', function(err, contents) {
 	if(err) console.log(err);
-	pages = contents.split(',');
+	pages = contents.split(', ');
 });
+
+const saveTrackedPages = () => {
+	fs.writeFile('./src/test.csv', pages, function(err) {
+		if(err) {
+			return console.log(err);
+		}
+	});
+};
 
 const welcomeUser = () => {
 	inquirer.prompt([{
@@ -42,7 +50,7 @@ const askForPreferences = () => {
 			resetPreferences();
 			break;
 		case strings.english.welcomeWizzard.preferencePanel.answers[1]:
-			addAdditionalPagesToFollow();
+			addPagesToFollow();
 			break;
 		case strings.english.welcomeWizzard.preferencePanel.answers[2]:
 			removePages();
@@ -64,13 +72,13 @@ const addPagesToFollow = () => {
 			);
 			if (pass) {
 				return true;
-				// TODO: update the pages file here
 			} else {
 				return strings.english.welcomeWizzard.addPages.inputValidation;
 			}
 		}
 	}]).then(answers => {
 		pages = [...pages, answers.pages];
+		saveTrackedPages();
 		addAdditionalPagesToFollow();
 	});
 };
@@ -88,7 +96,6 @@ const addAdditionalPagesToFollow = () => {
 		if (answers.nextStep === strings.english.welcomeWizzard.addPages.nextStep.answers[0]) {
 			addPagesToFollow();
 		} else {
-			console.log(pages);
 			crawlFacebook(pages, parallel);
 		}
 	});
@@ -102,7 +109,7 @@ const removePages = () => {
 		choices: pages
 	}]).then(answers => {
 		pages.splice(pages.indexOf(answers.nextStep),1);
-		// TODO: update the pages file here
+		saveTrackedPages();
 		welcomeUser();
 	});
 };
