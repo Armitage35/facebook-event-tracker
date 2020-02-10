@@ -15,6 +15,17 @@
 					"Add pages to follow",
 					"Remove individual pages"
 				]
+			},
+			"addPages": {
+				"question": "Input the individual pages you want to follow separated with a comma",
+				"inputValidation": "Please enter a valid URL",
+				"nextStep": {
+					"question": "Do you want to add other pages to follow?",
+					"answers": [
+						"Yes",
+						"No"
+					]
+				}
 			}
 		}
 	}

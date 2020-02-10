@@ -47,7 +47,7 @@ const addPagesToFollow = () => {
 	inquirer.prompt([{
 		type: 'input',
 		name: 'pages',
-		message: 'input the individual pages you want to follow separated with a comma',
+		message: strings.english.welcomeWizzard.addPages.question,
 		validate: function (value) {
 			let pass = value.match(
 				/[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/
@@ -55,7 +55,7 @@ const addPagesToFollow = () => {
 			if (pass) {
 				return true;
 			} else {
-				return 'Please enter a valid URL';
+				return strings.english.welcomeWizzard.addPages.inputValidation;
 			}
 		}
 	}]).then(answers => {
@@ -68,14 +68,13 @@ const addAdditionalPagesToFollow = () => {
 	inquirer.prompt([{
 		type: 'list',
 		name: 'nextStep',
-		message: 'Do you want to add other pages to follow?',
-		choices: ['Yes', 'No'],
+		message: strings.english.welcomeWizzard.addPages.nextStep.question,
+		choices: strings.english.welcomeWizzard.addPages.nextStep.answers,
 		filter: function (val) {
 			return val.toLowerCase();
 		}
 	}]).then(answers => {
-		console.log(JSON.stringify(answers, null, '  '));
-		if (answers.nextStep === 'yes') {
+		if (answers.nextStep === strings.english.welcomeWizzard.addPages.nextStep.answers[0]) {
 			addPagesToFollow();
 		} else {
 			console.log(pages);
