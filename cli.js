@@ -10,15 +10,16 @@ const parallel = 4;
 const strings = require('./src/strings.json');
 
 let pages = fs.readFile('./src/pages.csv', 'utf8', function(err, contents) {
-	if(err) console.log(err);
+	if (err) console.log(err);
 	pages = contents.split(', ');
 });
 
 const saveTrackedPages = () => {
-	// TODO: properly format file
-	fs.writeFile('./src/test.csv', pages, function(err) {
-		if(err) {
-			return console.log(err);
+	let formattedPages = pages.toString().replace(/\n/g, '');
+
+	fs.writeFile('./src/pages.csv', formattedPages, function(err) {
+		if (err) {
+			return console.log(strings.english.error);
 		}
 	});
 };
