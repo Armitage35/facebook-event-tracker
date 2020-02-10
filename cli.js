@@ -78,7 +78,7 @@ const addAdditionalPagesToFollow = () => {
 			addPagesToFollow();
 		} else {
 			console.log(pages);
-			crawlFacebook();
+			crawlFacebook(pages, parallel);
 		}
 	});
 };
