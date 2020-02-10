@@ -5,7 +5,7 @@ const ora = require('ora');
 const clear = require('clear');
 const inquirer = require('inquirer');
 
-const parallel = 1;
+const parallel = 4;
 let { pages } = require('./src/pages');
 const strings = require('./src/strings.json');
 
