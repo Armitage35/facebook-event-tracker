@@ -1,6 +1,6 @@
 {
 	"name": "facebook_event_tracker",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"description": "A CLI tool that enables you to track a FB Page's events without needing a Facebook account",
 	"author": "Adrien D. Ahlqvist",
 	"bugs": "https://github.com/Armitage35/fuzzy-roadmap/issues",
