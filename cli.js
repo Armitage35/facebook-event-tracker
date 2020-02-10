@@ -15,6 +15,7 @@ let pages = fs.readFile('./src/pages.csv', 'utf8', function(err, contents) {
 });
 
 const saveTrackedPages = () => {
+	// TODO: properly format file
 	fs.writeFile('./src/test.csv', pages, function(err) {
 		if(err) {
 			return console.log(err);
@@ -127,6 +128,7 @@ const resetPreferences = () => {
 			welcomeUser();
 		} else {
 			console.log(strings.english.welcomeWizzard.resetPreferences.cancel);
+			saveTrackedPages();
 			welcomeUser();
 		}
 	});
