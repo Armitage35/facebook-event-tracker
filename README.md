@@ -10,7 +10,7 @@ This tool lets you parse Facebook pages to track their events. This is very usef
 
 ## How is it built
 
-This project runs Puppeteer behind the scenes. It is not the best way to do this, but getting access to this API means I would need to set up a company, so that was the second-best way to do it.
+This project runs Puppeteer behind the scenes. *It is not the best way to do this*, but getting access to this API means I would need to set up a company, so that was the second-best way to do it.
 
 ## Key features
 
