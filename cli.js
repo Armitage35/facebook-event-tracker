@@ -9,7 +9,6 @@ const fs = require('fs');
 const parallel = 4;
 const strings = require('./src/strings.json');
 
-
 let pages = fs.readFile('./src/pages.csv', 'utf8', function(err, contents) {
 	if(err) console.log(err);
 	pages = contents.split(',');
@@ -60,6 +59,7 @@ const addPagesToFollow = () => {
 			);
 			if (pass) {
 				return true;
+				// TODO: update the pages file here
 			} else {
 				return strings.english.welcomeWizzard.addPages.inputValidation;
 			}
@@ -85,6 +85,37 @@ const addAdditionalPagesToFollow = () => {
 		} else {
 			console.log(pages);
 			crawlFacebook(pages, parallel);
+		}
+	});
+};
+
+const removePages = () => {
+	inquirer.prompt([{
+		type: 'list',
+		name: 'nextStep',
+		message: strings.english.welcomeWizzard.removePages.question,
+		choices: pages
+	}]).then(answers => {
+		pages.splice(pages.indexOf(answers.nextStep),1);
+		// TODO: update the pages file here
+		welcomeUser();
+	});
+};
+
+const resetPreferences = () => {
+	inquirer.prompt([{
+		type: 'list',
+		name: 'confirmation',
+		message: strings.english.welcomeWizzard.resetPreferences.question,
+		choices: strings.english.welcomeWizzard.resetPreferences.answers,
+	}]).then(answers => {
+		if (answers.confirmation === strings.english.welcomeWizzard.resetPreferences.answers[0]) {
+			pages = [];
+			console.log(strings.english.welcomeWizzard.resetPreferences.confirmation);
+			welcomeUser();
+		} else {
+			console.log(strings.english.welcomeWizzard.resetPreferences.cancel);
+			welcomeUser();
 		}
 	});
 };
@@ -164,18 +195,6 @@ const crawlFacebook = async (pages, parallel) => {
 	}
 
 	console.log('\n' + 'Crawling completed 👍');
-};
-
-const removePages = () => {
-	inquirer.prompt([{
-		type: 'list',
-		name: 'nextStep',
-		message: strings.english.welcomeWizzard.removePages.question,
-		choices: pages
-	}]).then(answers => {
-		pages.splice(pages.indexOf(answers.nextStep),1);
-		welcomeUser();
-	});
 };
 
 const displayEvents = (events) => {
