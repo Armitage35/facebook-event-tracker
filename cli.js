@@ -7,10 +7,17 @@ const clear = require('clear');
 const inquirer = require('inquirer');
 const fs = require('fs');
 const Analytics = require('analytics-node');
+const Rollbar = require('rollbar');
 
 // eslint-disable-next-line no-undef
 let client = new Analytics(process.env.SEGMENT_KEY);
 let userID = Math.floor(Math.random() * 999999);
+
+const rollbar = new Rollbar({
+	accessToken: process.env.ROLLBAR_KEY,
+	captureUncaught: true,
+	captureUnhandledRejections: true
+});
 
 const parallel = 4;
 const strings = require('./src/strings.json');
@@ -29,7 +36,7 @@ const initializeApp = () => {
 	));
 	if (fs.existsSync(pathToSavedPages)) {
 		pages = fs.readFile(pathToSavedPages, 'utf8', function(err, contents) {
-			if (err) console.log(err);
+			if (err) rollbar.log(err);
 			pages = contents.split(', ');
 			welcomeUser();
 		});
@@ -37,6 +44,7 @@ const initializeApp = () => {
 		fs.writeFile(pathToSavedPages, '', function(err) {
 			if (err) {
 				console.log(strings.english.error);
+				rollbar.log(err);
 			}
 			console.log(strings.english.onboarding);
 			addPagesToFollow();
@@ -49,6 +57,7 @@ const saveTrackedPages = () => {
 
 	fs.writeFile(pathToSavedPages, formattedPages, function(err) {
 		if (err) {
+			rollbar.log(err);
 			return console.log(strings.english.error);
 		}
 	});
@@ -93,6 +102,7 @@ const askForPreferences = () => {
 			break;
 		default:
 			console.log(strings.english.error);
+			rollbar.log('Issue in switch condition');
 		}
 	});
 };
@@ -297,7 +307,7 @@ const displayEvents = (events) => {
 			console.log('\n');
 		}
 	} catch (err) {
-		console.log(err);
+		rollbar.log(err);
 	}
 };
 

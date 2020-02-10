@@ -17,6 +17,7 @@
 		"inquirer": "^7.0.4",
 		"ora": "^4.0.3",
 		"puppeteer": "^2.1.1",
+		"rollbar": "^2.14.4",
 		"terminal-link": "^2.1.1"
 	},
 	"scripts": {
