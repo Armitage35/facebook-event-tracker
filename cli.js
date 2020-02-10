@@ -38,7 +38,7 @@ const askForPreferences = () => {
 			pages = [];
 			addPagesToFollow();
 		} else {
-			console.log(answers);
+			removePages();
 		}
 	});
 };
@@ -160,6 +160,18 @@ const crawlFacebook = async (pages, parallel) => {
 	}
 
 	console.log('\n' + 'Crawling completed 👍');
+};
+
+const removePages = () => {
+	inquirer.prompt([{
+		type: 'list',
+		name: 'nextStep',
+		message: strings.english.welcomeWizzard.removePages.question,
+		choices: pages
+	}]).then(answers => {
+		pages.splice(pages.indexOf(answers.nextStep),1);
+		welcomeUser();
+	});
 };
 
 const displayEvents = (events) => {

@@ -26,6 +26,9 @@
 						"No"
 					]
 				}
+			},
+			"removePages": {
+				"question": "Which page do you want to remove?"
 			}
 		}
 	}
