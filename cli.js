@@ -4,10 +4,16 @@ const chalk = require('chalk');
 const ora = require('ora');
 const clear = require('clear');
 const inquirer = require('inquirer');
+const fs = require('fs');
 
 const parallel = 4;
-let { pages } = require('./src/pages');
 const strings = require('./src/strings.json');
+
+
+let pages = fs.readFile('./src/pages.csv', 'utf8', function(err, contents) {
+	if(err) console.log(err);
+	pages = contents.split(',');
+});
 
 const welcomeUser = () => {
 	inquirer.prompt([{
@@ -82,8 +88,6 @@ const addAdditionalPagesToFollow = () => {
 		}
 	});
 };
-
-welcomeUser();
 
 const crawlFacebook = async (pages, parallel) => {
 	clear();
@@ -212,3 +216,5 @@ const displayEvents = (events) => {
 		console.log(err);
 	}
 };
+
+welcomeUser();
