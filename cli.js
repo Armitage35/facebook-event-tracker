@@ -14,6 +14,7 @@ let client = new Analytics(process.env.SEGMENT_KEY);
 let userID = Math.floor(Math.random() * 999999);
 
 const rollbar = new Rollbar({
+	// eslint-disable-next-line no-undef
 	accessToken: process.env.ROLLBAR_KEY,
 	captureUncaught: true,
 	captureUnhandledRejections: true
