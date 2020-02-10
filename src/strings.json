@@ -1,0 +1,35 @@
+{
+	"english": {
+		"welcomeWizzard": {
+			"welcome": {
+				"question": "What do you want to do?",
+				"answers": [
+					"Crawl for events",
+					"Update my preferences"
+				]
+			},
+			"preferencePanel": {
+				"question": "How shall we do this?",
+				"answers": [
+					"Reset my existing preferences",
+					"Add pages to follow",
+					"Remove individual pages"
+				]
+			},
+			"addPages": {
+				"question": "Input the individual pages you want to follow separated with a comma",
+				"inputValidation": "Please enter a valid URL",
+				"nextStep": {
+					"question": "Do you want to add other pages to follow?",
+					"answers": [
+						"Yes",
+						"No"
+					]
+				}
+			},
+			"removePages": {
+				"question": "Which page do you want to remove?"
+			}
+		}
+	}
+}
