@@ -37,13 +37,18 @@ const askForPreferences = () => {
 		message: strings.english.welcomeWizzard.preferencePanel.question,
 		choices: strings.english.welcomeWizzard.preferencePanel.answers
 	}]).then(answers => {
-		if (answers.preferences === strings.english.welcomeWizzard.preferencePanel.answers[1]) {
-			addPagesToFollow();
-		} else if (answers.preferences === strings.english.welcomeWizzard.preferencePanel.answers[0]) {
-			pages = [];
-			addPagesToFollow();
-		} else {
+		switch (answers.preferences) {
+		case strings.english.welcomeWizzard.preferencePanel.answers[0]:
+			resetPreferences();
+			break;
+		case strings.english.welcomeWizzard.preferencePanel.answers[1]:
+			addAdditionalPagesToFollow();
+			break;
+		case strings.english.welcomeWizzard.preferencePanel.answers[2]:
 			removePages();
+			break;
+		default:
+			console.log(strings.english.error);
 		}
 	});
 };

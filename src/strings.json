@@ -27,18 +27,18 @@
 					]
 				}
 			},
+			"resetPreferences": {
+				"question": "Are you sure you want to delete all the pages you follow?",
+				"answers": [
+					"Yes",
+					"No"
+				],
+				"confirmation": "Your preferences have been reset 🗑",
+				"cancel": "Your preferences have been conserved. Bringing you back to home"
+			},
 			"removePages": {
 				"question": "Which page do you want to remove?"
 			}
-		},
-		"resetPreferences": {
-			"question": "Are you sure you want to delete all the pages you follow?",
-			"answers": [
-				"Yes",
-				"No"
-			],
-			"confirmation": "Your preferences have been reset 🗑",
-			"cancel": "Your preferences have been conserved. Bringing you back to home"
 		}
 	},
 	"error": "Something weird just happened... Sorry for that"
