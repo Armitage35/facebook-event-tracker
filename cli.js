@@ -8,16 +8,27 @@ const fs = require('fs');
 
 const parallel = 4;
 const strings = require('./src/strings.json');
+const pathToSavedPages = './src/pages.csv';
 
-let pages = fs.readFile('./src/pages.csv', 'utf8', function(err, contents) {
-	if (err) console.log(err);
-	pages = contents.split(', ');
-});
+let pages = [];
+
+if (fs.existsSync(pathToSavedPages)) {
+	pages = fs.readFile(pathToSavedPages, 'utf8', function(err, contents) {
+		if (err) console.log(err);
+		pages = contents.split(', ');
+	});
+} else {
+	fs.writeFile(pathToSavedPages, '', function(err) {
+		if (err) {
+			return console.log(strings.english.error);
+		}
+	});
+}
 
 const saveTrackedPages = () => {
 	let formattedPages = pages.toString().replace(/\n/g, '');
 
-	fs.writeFile('./src/pages.csv', formattedPages, function(err) {
+	fs.writeFile(pathToSavedPages, formattedPages, function(err) {
 		if (err) {
 			return console.log(strings.english.error);
 		}
