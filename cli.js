@@ -1,3 +1,4 @@
+require('dotenv').config();
 const puppeteer = require('puppeteer');
 const terminalLink = require('terminal-link');
 const chalk = require('chalk');
@@ -5,6 +6,11 @@ const ora = require('ora');
 const clear = require('clear');
 const inquirer = require('inquirer');
 const fs = require('fs');
+const Analytics = require('analytics-node');
+
+// eslint-disable-next-line no-undef
+let client = new Analytics(process.env.SEGMENT_KEY);
+let userID = Math.floor(Math.random() * 999999);
 
 const parallel = 4;
 const strings = require('./src/strings.json');
@@ -12,7 +18,15 @@ const pathToSavedPages = './src/pages.csv';
 
 let pages = [];
 
-const initializeApp = () =>{
+const initializeApp = () => {
+	client.identify({
+		userId: userID,
+	},(
+		client.track({
+			userId:userID,
+			event: 'Started the app',
+		})
+	));
 	if (fs.existsSync(pathToSavedPages)) {
 		pages = fs.readFile(pathToSavedPages, 'utf8', function(err, contents) {
 			if (err) console.log(err);
@@ -41,6 +55,10 @@ const saveTrackedPages = () => {
 };
 
 const welcomeUser = () => {
+	client.track({
+		userId:userID,
+		event: 'Onboard user',
+	});
 	inquirer.prompt([{
 		type: 'list',
 		name: 'welcome',
@@ -95,6 +113,10 @@ const addPagesToFollow = () => {
 			}
 		}
 	}]).then(answers => {
+		client.track({
+			userId:userID,
+			event: 'Add page to tracking',
+		});
 		pages = [...pages, answers.pages];
 		saveTrackedPages();
 		addAdditionalPagesToFollow();
@@ -126,6 +148,10 @@ const removePages = () => {
 		message: strings.english.welcomeWizzard.removePages.question,
 		choices: pages
 	}]).then(answers => {
+		client.track({
+			userId:userID,
+			event: 'Remove page from tracking',
+		});
 		pages.splice(pages.indexOf(answers.nextStep),1);
 		saveTrackedPages();
 		welcomeUser();
@@ -140,6 +166,10 @@ const resetPreferences = () => {
 		choices: strings.english.welcomeWizzard.resetPreferences.answers,
 	}]).then(answers => {
 		if (answers.confirmation === strings.english.welcomeWizzard.resetPreferences.answers[0]) {
+			client.track({
+				userId:userID,
+				event: 'Reset preferences',
+			});
 			pages = [];
 			console.log(strings.english.welcomeWizzard.resetPreferences.confirmation);
 			welcomeUser();
@@ -229,6 +259,10 @@ const crawlFacebook = async (pages, parallel) => {
 };
 
 const displayEvents = (events) => {
+	client.track({
+		userId:userID,
+		event: 'Crawls FB',
+	});
 	try {
 		for (let i = 0; i < events.recurringEvents.descriptions.length; i++) {
 			let j = i + 1;

@@ -10,8 +10,10 @@
 	},
 	"license": "MIT",
 	"dependencies": {
+		"analytics-node": "^3.4.0-beta.1",
 		"chalk": "^3.0.0",
 		"clear": "^0.1.0",
+		"dotenv": "^8.2.0",
 		"inquirer": "^7.0.4",
 		"ora": "^4.0.3",
 		"puppeteer": "^2.1.1",
