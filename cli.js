@@ -16,12 +16,15 @@ if (fs.existsSync(pathToSavedPages)) {
 	pages = fs.readFile(pathToSavedPages, 'utf8', function(err, contents) {
 		if (err) console.log(err);
 		pages = contents.split(', ');
+		welcomeUser();
 	});
 } else {
 	fs.writeFile(pathToSavedPages, '', function(err) {
 		if (err) {
-			return console.log(strings.english.error);
+			console.log(strings.english.error);
 		}
+		console.log(strings.english.onboarding);
+		addPagesToFollow();
 	});
 }
 
@@ -261,5 +264,3 @@ const displayEvents = (events) => {
 		console.log(err);
 	}
 };
-
-welcomeUser();
