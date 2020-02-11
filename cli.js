@@ -20,7 +20,7 @@ const rollbar = new Rollbar({
 	captureUnhandledRejections: true
 });
 
-const parallel = 4;
+const parallel = 4; // decides how many tabs will be loaded at the same time. More means faster but also more ressources
 const strings = require('./src/strings.json');
 const pathToSavedPages = './src/pages.csv';
 
