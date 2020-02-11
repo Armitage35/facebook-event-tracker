@@ -45,7 +45,7 @@ const initializeApp = () => {
 		fs.writeFile(pathToSavedPages, '', function(err) {
 			if (err) {
 				console.log(strings.english.error);
-				rollbar.log(err);
+				reportError(err);
 			}
 			console.log(strings.english.onboarding);
 			addPagesToFollow();
@@ -58,8 +58,7 @@ const saveTrackedPages = () => {
 
 	fs.writeFile(pathToSavedPages, formattedPages, function(err) {
 		if (err) {
-			rollbar.log(err);
-			return console.log(strings.english.error);
+			reportError(err);
 		}
 	});
 };
@@ -308,8 +307,13 @@ const displayEvents = (events) => {
 			console.log('\n');
 		}
 	} catch (err) {
-		rollbar.log(err);
+		reportError(err);
 	}
+};
+
+const reportError = (err) => {
+	rollbar.log(err);
+	return console.log(strings.english.error);
 };
 
 initializeApp();
