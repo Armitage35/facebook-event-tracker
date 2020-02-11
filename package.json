@@ -21,10 +21,12 @@
 		"terminal-link": "^2.1.1"
 	},
 	"scripts": {
-		"start": "node cli.js"
+		"start": "node cli.js",
+		"build": "nexe cli.js -r .env"
 	},
 	"devDependencies": {
 		"eslint": "^6.8.0",
+		"nexe": "^3.3.2",
 		"prettier": "1.19.1"
 	}
 }
