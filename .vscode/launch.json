@@ -10,7 +10,8 @@
             "name": "Launch Program",
             "skipFiles": [
                 "<node_internals>/**"
-            ],
+						],
+						"runtimeVersion": "12.15.0",
             "program": "${workspaceFolder}/cli.js"
         }
     ]
