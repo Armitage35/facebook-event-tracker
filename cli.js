@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 require('dotenv').config();
 const puppeteer = require('puppeteer');
 const terminalLink = require('terminal-link');
