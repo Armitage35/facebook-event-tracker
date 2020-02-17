@@ -12,21 +12,24 @@ const pathToSavedPages = './src/pages.csv';
 
 let pages = [];
 
-if (fs.existsSync(pathToSavedPages)) {
-	pages = fs.readFile(pathToSavedPages, 'utf8', function(err, contents) {
-		if (err) console.log(err);
-		pages = contents.split(', ');
-		welcomeUser();
-	});
-} else {
-	fs.writeFile(pathToSavedPages, '', function(err) {
-		if (err) {
-			console.log(strings.english.error);
-		}
-		console.log(strings.english.onboarding);
-		addPagesToFollow();
-	});
-}
+const intializeApp = () => {
+	if (fs.existsSync(pathToSavedPages)) {
+		pages = fs.readFile(pathToSavedPages, 'utf8', function(err, contents) {
+			if (err) console.log(err);
+			pages = contents.split(',');
+			welcomeUser();
+		});
+	} else {
+		fs.writeFile(pathToSavedPages, '', function(err) {
+			if (err) {
+				console.log(strings.english.error);
+			}
+			console.log(strings.english.onboarding);
+			addPagesToFollow();
+		});
+	}
+};
+
 
 const saveTrackedPages = () => {
 	let formattedPages = pages.toString().replace(/\n/g, '');
@@ -104,10 +107,7 @@ const addAdditionalPagesToFollow = () => {
 		type: 'list',
 		name: 'nextStep',
 		message: strings.english.welcomeWizzard.addPages.nextStep.question,
-		choices: strings.english.welcomeWizzard.addPages.nextStep.answers,
-		filter: function (val) {
-			return val.toLowerCase();
-		}
+		choices: strings.english.welcomeWizzard.addPages.nextStep.answers
 	}]).then(answers => {
 		if (answers.nextStep === strings.english.welcomeWizzard.addPages.nextStep.answers[0]) {
 			addPagesToFollow();
@@ -264,3 +264,5 @@ const displayEvents = (events) => {
 		console.log(err);
 	}
 };
+
+intializeApp();
