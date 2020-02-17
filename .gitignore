@@ -1,6 +1,8 @@
 # Project specific
 screenshot
 screenshots
+test.csv
+pages.csv
 
 # Logs
 logs
