@@ -104,10 +104,7 @@ const addAdditionalPagesToFollow = () => {
 		type: 'list',
 		name: 'nextStep',
 		message: strings.english.welcomeWizzard.addPages.nextStep.question,
-		choices: strings.english.welcomeWizzard.addPages.nextStep.answers,
-		filter: function (val) {
-			return val.toLowerCase();
-		}
+		choices: strings.english.welcomeWizzard.addPages.nextStep.answers
 	}]).then(answers => {
 		if (answers.nextStep === strings.english.welcomeWizzard.addPages.nextStep.answers[0]) {
 			addPagesToFollow();
