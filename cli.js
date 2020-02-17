@@ -16,7 +16,7 @@ const intializeApp = () => {
 	if (fs.existsSync(pathToSavedPages)) {
 		pages = fs.readFile(pathToSavedPages, 'utf8', function(err, contents) {
 			if (err) console.log(err);
-			pages = contents.split(', ');
+			pages = contents.split(',');
 			welcomeUser();
 		});
 	} else {
