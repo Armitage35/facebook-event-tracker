@@ -152,10 +152,10 @@ const resetPreferences = () => {
 const crawlFacebook = async (pages, parallel) => {
 	clear();
 
-	const spinner = ora('Crawling started 🚀').start();
+	const spinner = ora('Crawling launched 🚀').start();
 	setTimeout(() => {
 		spinner.color = 'blue';
-		spinner.text = 'Crawling started 🚀' + '\n';
+		spinner.text = 'Crawling launched 🚀' + '\n';
 	}, 1000);
 
 	for (let i = 0; i < pages.length; i += parallel) {
@@ -197,7 +197,7 @@ const crawlFacebook = async (pages, parallel) => {
 						);
 
 						events.pastAndUpcoming.titles = await page.evaluate(
-							() => [...document.querySelectorAll('_:first-of-type > ._50f7')].map(elem => elem.innerText.replace(/\n/g, ''))
+							() => [...document.querySelectorAll('._50f7')].map(elem => elem.innerText.replace(/\n/g, ''))
 						);
 
 						events.pastAndUpcoming.dates = await page.evaluate(
@@ -249,6 +249,9 @@ const displayEvents = (events) => {
 		}
 
 		for (let i = 0; i < events.pastAndUpcoming.titles.length; i++) {
+			let isPastEvent = dateConverter(events.pastAndUpcoming.dates[i]);
+			// console.log(isPastEvent);
+
 			console.log(chalk.underline('Title:') + ' ' + events.pastAndUpcoming.titles[i]);
 			console.log(chalk.underline('Date:') + ' ' + events.pastAndUpcoming.dates[i]);
 			console.log(
@@ -270,12 +273,14 @@ const dateConverter = (dateToConvert) => {
 
 	let month = facebookDates.indexOf(dateToConvert.substring(0,3));
 	let day = dateToConvert.substring(3);
-
 	let date = new Date(new Date().getFullYear(), month, day);
 
-	return date;
-};
+	let isPastEvent = new Date() > date; // check if date is in the past
+	let isSoonEvent = new Date().getMonth() + 3 - date.getMonth(); // check if event occurs in less than 3 month
 
-dateConverter('DEC15');
+	let result = isSoonEvent >= 0 && isSoonEvent <= 3 && !isPastEvent ? true : false;
+
+	return result;
+};
 
 intializeApp();
