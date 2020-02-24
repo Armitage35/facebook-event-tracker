@@ -152,10 +152,10 @@ const resetPreferences = () => {
 const crawlFacebook = async (pages, parallel) => {
 	clear();
 
-	const spinner = ora('Crawling launched 🚀').start();
+	const spinner = ora('Crawling started 🚀').start();
 	setTimeout(() => {
 		spinner.color = 'blue';
-		spinner.text = 'Crawling launched 🚀' + '\n';
+		spinner.text = 'Crawling started 🚀' + '\n';
 	}, 1000);
 
 	for (let i = 0; i < pages.length; i += parallel) {
@@ -197,7 +197,7 @@ const crawlFacebook = async (pages, parallel) => {
 						);
 
 						events.pastAndUpcoming.titles = await page.evaluate(
-							() => [...document.querySelectorAll('._50f7')].map(elem => elem.innerText.replace(/\n/g, ''))
+							() => [...document.querySelectorAll('_:first-of-type > ._50f7')].map(elem => elem.innerText.replace(/\n/g, ''))
 						);
 
 						events.pastAndUpcoming.dates = await page.evaluate(
@@ -264,5 +264,18 @@ const displayEvents = (events) => {
 		console.log(err);
 	}
 };
+
+const dateConverter = (dateToConvert) => {
+	const facebookDates = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+
+	let month = facebookDates.indexOf(dateToConvert.substring(0,3));
+	let day = dateToConvert.substring(3);
+
+	let date = new Date(new Date().getFullYear(), month, day);
+
+	return date;
+};
+
+dateConverter('DEC15');
 
 intializeApp();
