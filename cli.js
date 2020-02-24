@@ -274,14 +274,14 @@ const displayEvents = (events) => {
 const dateAssesor = (dateToConvert) => {
 	const facebookDates = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
-	let month = facebookDates.indexOf(dateToConvert.substring(0,3));
-	let day = dateToConvert.substring(3);
-	let date = new Date(new Date().getFullYear(), month, day);
+	const month = facebookDates.indexOf(dateToConvert.substring(0,3));
+	const day = dateToConvert.substring(3);
+	const date = new Date(new Date().getFullYear(), month, day);
 
-	let isPastEvent = new Date() > date; // check if date is in the past
-	let isSoonEvent = new Date().getMonth() + 3 - date.getMonth(); // check if event occurs in less than 3 month
+	const isPastEvent = new Date() > date; // check if date is in the past
+	const isSoonEvent = new Date().getMonth() + 3 - date.getMonth(); // check if event occurs in less than 3 month
 
-	let result = isSoonEvent >= 0 && isSoonEvent <= 3 && !isPastEvent ? true : false;
+	const result = isSoonEvent >= 0 && isSoonEvent <= 3 && !isPastEvent ? true : false;
 
 	return result;
 };
