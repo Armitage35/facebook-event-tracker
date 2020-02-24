@@ -22,7 +22,7 @@ const intializeApp = () => {
 	} else {
 		fs.writeFile(pathToSavedPages, '', function(err) {
 			if (err) {
-				console.log(strings.english.error);
+				console.log(strings.english.error.standard);
 			}
 			console.log(strings.english.onboarding);
 			addPagesToFollow();
@@ -36,7 +36,7 @@ const saveTrackedPages = () => {
 
 	fs.writeFile(pathToSavedPages, formattedPages, function(err) {
 		if (err) {
-			return console.log(strings.english.error);
+			return console.log(strings.english.error.standard);
 		}
 	});
 };
@@ -75,7 +75,7 @@ const askForPreferences = () => {
 			removePages();
 			break;
 		default:
-			console.log(strings.english.error);
+			console.log(strings.english.error.standard);
 		}
 	});
 };
@@ -152,10 +152,10 @@ const resetPreferences = () => {
 const crawlFacebook = async (pages, parallel) => {
 	clear();
 
-	const spinner = ora('Crawling launched 🚀').start();
+	const spinner = ora(strings.english.success.crawlingStarted).start();
 	setTimeout(() => {
 		spinner.color = 'blue';
-		spinner.text = 'Crawling launched 🚀' + '\n';
+		spinner.text = strings.english.success.crawlingStarted + '\n';
 	}, 1000);
 
 	for (let i = 0; i < pages.length; i += parallel) {
@@ -210,10 +210,11 @@ const crawlFacebook = async (pages, parallel) => {
 
 						console.log(chalk.bold(await page.title() + '\n'));
 						spinner.stop();
+
 						displayEvents(events);
 
 					} catch (err) {
-						console.log('\n' + '❌ Sorry! I couldn\'t keep parse this page');
+						console.log('\n' + strings.english.error.parsingError);
 					}
 				}));
 			}
@@ -223,7 +224,7 @@ const crawlFacebook = async (pages, parallel) => {
 		await browser.close();
 	}
 
-	console.log('\n' + 'Crawling completed 👍');
+	console.log('\n' + strings.english.success.crawlingCompleted);
 };
 
 const displayEvents = (events) => {
@@ -233,6 +234,7 @@ const displayEvents = (events) => {
 
 			console.log(chalk.underline('Title:') + ' ' + events.recurringEvents.titles[i]);
 			console.log(chalk.underline('Description:') + ' ' + events.recurringEvents.descriptions[i]);
+
 			if (i === 0) {
 				console.log(chalk.underline('Date:') + ' ' + events.recurringEvents.dates[i] + ' & ' + events.recurringEvents.dates[j]);
 			} else {
@@ -249,26 +251,27 @@ const displayEvents = (events) => {
 		}
 
 		for (let i = 0; i < events.pastAndUpcoming.titles.length; i++) {
-			let isPastEvent = dateConverter(events.pastAndUpcoming.dates[i]);
-			// console.log(isPastEvent);
+			const shouldEventBeDisplayed = dateAssesor(events.pastAndUpcoming.dates[i]);
 
-			console.log(chalk.underline('Title:') + ' ' + events.pastAndUpcoming.titles[i]);
-			console.log(chalk.underline('Date:') + ' ' + events.pastAndUpcoming.dates[i]);
-			console.log(
-				chalk.blue(
-					chalk.underline(
-						terminalLink('Link to the event', 'https://facebook.com' + events.pastAndUpcoming.link[i])
+			if (shouldEventBeDisplayed) {
+				console.log(chalk.underline('Title:') + ' ' + events.pastAndUpcoming.titles[i]);
+				console.log(chalk.underline('Date:') + ' ' + events.pastAndUpcoming.dates[i]);
+				console.log(
+					chalk.blue(
+						chalk.underline(
+							terminalLink('Link to the event', 'https://facebook.com' + events.pastAndUpcoming.link[i])
+						)
 					)
-				)
-			);
-			console.log('\n');
+				);
+				console.log('\n');
+			}
 		}
 	} catch (err) {
 		console.log(err);
 	}
 };
 
-const dateConverter = (dateToConvert) => {
+const dateAssesor = (dateToConvert) => {
 	const facebookDates = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
 	let month = facebookDates.indexOf(dateToConvert.substring(0,3));
