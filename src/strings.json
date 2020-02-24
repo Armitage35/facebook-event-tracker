@@ -40,7 +40,14 @@
 				"question": "Which page do you want to remove?"
 			}
 		},
-		"error": "Something weird just happened... Sorry for that",
+		"error":{
+			"standard": "Something weird just happened... Sorry for that",
+			"parsingError": "❌ Sorry! I couldn't keep parse this page"
+		},
+		"success": {
+			"crawlingCompleted": "Crawling completed 👍",
+			"crawlingStarted": "Crawling launched 🚀"
+		},
 		"onboarding": "✋ Hello user and thank you for using this application. First, let's find out which pages you want to know about"
 	}
 }
