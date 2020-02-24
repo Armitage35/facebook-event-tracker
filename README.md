@@ -14,7 +14,12 @@ This project runs Puppeteer behind the scenes. *It is not the best way to do thi
 
 ## Key features
 
-This app lets you declare which pages to track and get upcoming, recurring and past events. It will also enable you to add them to your own calendar.
+This app lets you declare which pages to track and get upcoming, recurring and past events.
+
+## How to use
+
+1. Install dependancies using `yarn`
+1. Run `yarn start`
 
 ---
 Brought to you by [Armitage](https://armitageweb.net) and made with :heart: in beautiful Montreal
