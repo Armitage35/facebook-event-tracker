@@ -30,7 +30,6 @@ const intializeApp = () => {
 	}
 };
 
-
 const saveTrackedPages = () => {
 	let formattedPages = pages.toString().replace(/\n/g, '');
 
@@ -42,14 +41,20 @@ const saveTrackedPages = () => {
 };
 
 const welcomeUser = () => {
-	inquirer.prompt([{
-		type: 'list',
-		name: 'welcome',
-		message: strings.english.welcomeWizzard.welcome.question,
-		choices: strings.english.welcomeWizzard.welcome.answers
-	}])
+	inquirer
+		.prompt([
+			{
+				type: 'list',
+				name: 'welcome',
+				message: strings.english.welcomeWizzard.welcome.question,
+				choices: strings.english.welcomeWizzard.welcome.answers,
+			},
+		])
 		.then(answers => {
-			if (answers.welcome === strings.english.welcomeWizzard.welcome.answers[1]) {
+			if (
+				answers.welcome ===
+				strings.english.welcomeWizzard.welcome.answers[1]
+			) {
 				askForPreferences();
 			} else {
 				crawlFacebook(pages, parallel);
@@ -58,95 +63,131 @@ const welcomeUser = () => {
 };
 
 const askForPreferences = () => {
-	inquirer.prompt([{
-		type: 'list',
-		name: 'preferences',
-		message: strings.english.welcomeWizzard.preferencePanel.question,
-		choices: strings.english.welcomeWizzard.preferencePanel.answers
-	}]).then(answers => {
-		switch (answers.preferences) {
-		case strings.english.welcomeWizzard.preferencePanel.answers[0]:
-			resetPreferences();
-			break;
-		case strings.english.welcomeWizzard.preferencePanel.answers[1]:
-			addPagesToFollow();
-			break;
-		case strings.english.welcomeWizzard.preferencePanel.answers[2]:
-			removePages();
-			break;
-		default:
-			console.log(strings.english.error.standard);
-		}
-	});
+	inquirer
+		.prompt([
+			{
+				type: 'list',
+				name: 'preferences',
+				message:
+					strings.english.welcomeWizzard.preferencePanel.question,
+				choices: strings.english.welcomeWizzard.preferencePanel.answers,
+			},
+		])
+		.then(answers => {
+			switch (answers.preferences) {
+				case strings.english.welcomeWizzard.preferencePanel.answers[0]:
+					resetPreferences();
+					break;
+				case strings.english.welcomeWizzard.preferencePanel.answers[1]:
+					addPagesToFollow();
+					break;
+				case strings.english.welcomeWizzard.preferencePanel.answers[2]:
+					removePages();
+					break;
+				default:
+					console.log(strings.english.error.standard);
+			}
+		});
 };
 
 const addPagesToFollow = () => {
-	inquirer.prompt([{
-		type: 'input',
-		name: 'pages',
-		message: strings.english.welcomeWizzard.addPages.question,
-		validate: function (value) {
-			let pass = value.match(
-				/[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/
-			);
-			if (pass) {
-				return true;
-			} else {
-				return strings.english.welcomeWizzard.addPages.inputValidation;
-			}
-		}
-	}]).then(answers => {
-		pages = [...pages, answers.pages];
-		saveTrackedPages();
-		addAdditionalPagesToFollow();
-	});
+	inquirer
+		.prompt([
+			{
+				type: 'input',
+				name: 'pages',
+				message: strings.english.welcomeWizzard.addPages.question,
+				validate: function(value) {
+					let pass = value.match(
+						/[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/
+					);
+					if (pass) {
+						return true;
+					} else {
+						return strings.english.welcomeWizzard.addPages
+							.inputValidation;
+					}
+				},
+			},
+		])
+		.then(answers => {
+			pages = [...pages, answers.pages];
+			saveTrackedPages();
+			addAdditionalPagesToFollow();
+		});
 };
 
 const addAdditionalPagesToFollow = () => {
-	inquirer.prompt([{
-		type: 'list',
-		name: 'nextStep',
-		message: strings.english.welcomeWizzard.addPages.nextStep.question,
-		choices: strings.english.welcomeWizzard.addPages.nextStep.answers
-	}]).then(answers => {
-		if (answers.nextStep === strings.english.welcomeWizzard.addPages.nextStep.answers[0]) {
-			addPagesToFollow();
-		} else {
-			crawlFacebook(pages, parallel);
-		}
-	});
+	inquirer
+		.prompt([
+			{
+				type: 'list',
+				name: 'nextStep',
+				message:
+					strings.english.welcomeWizzard.addPages.nextStep.question,
+				choices:
+					strings.english.welcomeWizzard.addPages.nextStep.answers,
+			},
+		])
+		.then(answers => {
+			if (
+				answers.nextStep ===
+				strings.english.welcomeWizzard.addPages.nextStep.answers[0]
+			) {
+				addPagesToFollow();
+			} else {
+				crawlFacebook(pages, parallel);
+			}
+		});
 };
 
 const removePages = () => {
-	inquirer.prompt([{
-		type: 'list',
-		name: 'nextStep',
-		message: strings.english.welcomeWizzard.removePages.question,
-		choices: pages
-	}]).then(answers => {
-		pages.splice(pages.indexOf(answers.nextStep),1);
-		saveTrackedPages();
-		welcomeUser();
-	});
+	inquirer
+		.prompt([
+			{
+				type: 'list',
+				name: 'nextStep',
+				message: strings.english.welcomeWizzard.removePages.question,
+				choices: pages,
+			},
+		])
+		.then(answers => {
+			pages.splice(pages.indexOf(answers.nextStep), 1);
+			saveTrackedPages();
+			welcomeUser();
+		});
 };
 
 const resetPreferences = () => {
-	inquirer.prompt([{
-		type: 'list',
-		name: 'confirmation',
-		message: strings.english.welcomeWizzard.resetPreferences.question,
-		choices: strings.english.welcomeWizzard.resetPreferences.answers,
-	}]).then(answers => {
-		if (answers.confirmation === strings.english.welcomeWizzard.resetPreferences.answers[0]) {
-			pages = [];
-			console.log(strings.english.welcomeWizzard.resetPreferences.confirmation);
-			welcomeUser();
-		} else {
-			console.log(strings.english.welcomeWizzard.resetPreferences.cancel);
-			saveTrackedPages();
-			welcomeUser();
-		}
-	});
+	inquirer
+		.prompt([
+			{
+				type: 'list',
+				name: 'confirmation',
+				message:
+					strings.english.welcomeWizzard.resetPreferences.question,
+				choices:
+					strings.english.welcomeWizzard.resetPreferences.answers,
+			},
+		])
+		.then(answers => {
+			if (
+				answers.confirmation ===
+				strings.english.welcomeWizzard.resetPreferences.answers[0]
+			) {
+				pages = [];
+				console.log(
+					strings.english.welcomeWizzard.resetPreferences.confirmation
+				);
+				welcomeUser();
+			} else {
+				console.log(
+					strings.english.welcomeWizzard.resetPreferences.cancel
+				);
+				saveTrackedPages();
+				welcomeUser();
+			}
+		});
 };
 
 const crawlFacebook = async (pages, parallel) => {
@@ -159,7 +200,6 @@ const crawlFacebook = async (pages, parallel) => {
 	}, 1000);
 
 	for (let i = 0; i < pages.length; i += parallel) {
-
 		const browser = await puppeteer.launch();
 		const context = await browser.createIncognitoBrowserContext();
 		const page = await context.newPage();
@@ -176,47 +216,89 @@ const crawlFacebook = async (pages, parallel) => {
 			let elem = i + j;
 
 			if (pages[elem] != undefined) {
-				promises.push(browser.newPage().then(async page => {
-					try {
-						await page.goto(pages[elem]);
+				promises.push(
+					browser.newPage().then(async page => {
+						try {
+							await page.goto(pages[elem]);
 
-						events.recurringEvents.titles = await page.evaluate(
-							() => [...document.querySelectorAll('._2l3f')].map(elem => elem.innerText.replace(/\n/g, ''))
-						);
+							events.recurringEvents.titles = await page.evaluate(
+								() =>
+									[
+										...document.querySelectorAll('._2l3f'),
+									].map(elem =>
+										elem.innerText.replace(/\n/g, '')
+									)
+							);
 
-						events.recurringEvents.descriptions = await page.evaluate(
-							() => [...document.querySelectorAll('._4etw')].map(elem => elem.innerText.replace(/\n/g, '').replace('More', ''))
-						);
+							events.recurringEvents.descriptions = await page.evaluate(
+								() =>
+									[
+										...document.querySelectorAll('._4etw'),
+									].map(elem =>
+										elem.innerText
+											.replace(/\n/g, '')
+											.replace('More', '')
+									)
+							);
 
-						events.recurringEvents.dates = await page.evaluate(
-							() => [...document.querySelectorAll('._5x8v')].map(elem => elem.innerText.replace(/\n/g, ''))
-						);
+							events.recurringEvents.dates = await page.evaluate(
+								() =>
+									[
+										...document.querySelectorAll('._5x8v'),
+									].map(elem =>
+										elem.innerText.replace(/\n/g, '')
+									)
+							);
 
-						events.recurringEvents.link = await page.evaluate(
-							() => [...document.querySelectorAll('._1b-b > a')].map(elem => elem.getAttribute('href'))
-						);
+							events.recurringEvents.link = await page.evaluate(
+								() =>
+									[
+										...document.querySelectorAll(
+											'._1b-b > a'
+										),
+									].map(elem => elem.getAttribute('href'))
+							);
 
-						events.pastAndUpcoming.titles = await page.evaluate(
-							() => [...document.querySelectorAll('._50f7')].map(elem => elem.innerText.replace(/\n/g, ''))
-						);
+							events.pastAndUpcoming.titles = await page.evaluate(
+								() =>
+									[
+										...document.querySelectorAll('._50f7'),
+									].map(elem =>
+										elem.innerText.replace(/\n/g, '')
+									)
+							);
 
-						events.pastAndUpcoming.dates = await page.evaluate(
-							() => [...document.querySelectorAll('._5a5i')].map(elem => elem.innerText.replace(/\n/g, ''))
-						);
+							events.pastAndUpcoming.dates = await page.evaluate(
+								() =>
+									[
+										...document.querySelectorAll('._5a5i'),
+									].map(elem =>
+										elem.innerText.replace(/\n/g, '')
+									)
+							);
 
-						events.pastAndUpcoming.link = await page.evaluate(
-							() => [...document.querySelectorAll('._4dmk > a')].map(elem => elem.getAttribute('href'))
-						);
+							events.pastAndUpcoming.link = await page.evaluate(
+								() =>
+									[
+										...document.querySelectorAll(
+											'._4dmk > a'
+										),
+									].map(elem => elem.getAttribute('href'))
+							);
 
-						console.log(chalk.bold(await page.title() + '\n'));
-						spinner.stop();
+							console.log(
+								chalk.bold((await page.title()) + '\n')
+							);
+							spinner.stop();
 
-						displayEvents(events);
-
-					} catch (err) {
-						console.log('\n' + strings.english.error.parsingError);
-					}
-				}));
+							displayEvents(events);
+						} catch (err) {
+							console.log(
+								'\n' + strings.english.error.parsingError
+							);
+						}
+					})
+				);
 			}
 		}
 
@@ -227,23 +309,47 @@ const crawlFacebook = async (pages, parallel) => {
 	console.log('\n' + strings.english.success.crawlingCompleted);
 };
 
-const displayEvents = (events) => {
+const displayEvents = events => {
 	try {
 		for (let i = 0; i < events.recurringEvents.descriptions.length; i++) {
 			let j = i + 1;
 
-			console.log(chalk.underline('Title:') + ' ' + events.recurringEvents.titles[i]);
-			console.log(chalk.underline('Description:') + ' ' + events.recurringEvents.descriptions[i]);
+			console.log(
+				chalk.underline('Title:') +
+					' ' +
+					events.recurringEvents.titles[i]
+			);
+			console.log(
+				chalk.underline('Description:') +
+					' ' +
+					events.recurringEvents.descriptions[i]
+			);
 
 			if (i === 0) {
-				console.log(chalk.underline('Date:') + ' ' + events.recurringEvents.dates[i] + ' & ' + events.recurringEvents.dates[j]);
+				console.log(
+					chalk.underline('Date:') +
+						' ' +
+						events.recurringEvents.dates[i] +
+						' & ' +
+						events.recurringEvents.dates[j]
+				);
 			} else {
-				console.log(chalk.underline('Date:') + ' ' + events.recurringEvents.dates[i * 2] + ' & ' + events.recurringEvents.dates[i * 2 + 1]);
+				console.log(
+					chalk.underline('Date:') +
+						' ' +
+						events.recurringEvents.dates[i * 2] +
+						' & ' +
+						events.recurringEvents.dates[i * 2 + 1]
+				);
 			}
 			console.log(
 				chalk.blue(
 					chalk.underline(
-						terminalLink('Link to the event', 'https://facebook.com' + events.recurringEvents.link[i])
+						terminalLink(
+							'Link to the event',
+							'https://facebook.com' +
+								events.recurringEvents.link[i]
+						)
 					)
 				)
 			);
@@ -251,15 +357,29 @@ const displayEvents = (events) => {
 		}
 
 		for (let i = 0; i < events.pastAndUpcoming.titles.length; i++) {
-			const shouldEventBeDisplayed = dateAssesor(events.pastAndUpcoming.dates[i]);
+			const shouldEventBeDisplayed = dateAssesor(
+				events.pastAndUpcoming.dates[i]
+			);
 
 			if (shouldEventBeDisplayed) {
-				console.log(chalk.underline('Title:') + ' ' + events.pastAndUpcoming.titles[i]);
-				console.log(chalk.underline('Date:') + ' ' + events.pastAndUpcoming.dates[i]);
+				console.log(
+					chalk.underline('Title:') +
+						' ' +
+						events.pastAndUpcoming.titles[i]
+				);
+				console.log(
+					chalk.underline('Date:') +
+						' ' +
+						events.pastAndUpcoming.dates[i]
+				);
 				console.log(
 					chalk.blue(
 						chalk.underline(
-							terminalLink('Link to the event', 'https://facebook.com' + events.pastAndUpcoming.link[i])
+							terminalLink(
+								'Link to the event',
+								'https://facebook.com' +
+									events.pastAndUpcoming.link[i]
+							)
 						)
 					)
 				);
@@ -271,17 +391,31 @@ const displayEvents = (events) => {
 	}
 };
 
-const dateAssesor = (dateToConvert) => {
-	const facebookDates = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+const dateAssesor = dateToConvert => {
+	const facebookDates = [
+		'JAN',
+		'FEB',
+		'MAR',
+		'APR',
+		'MAY',
+		'JUN',
+		'JUL',
+		'AUG',
+		'SEP',
+		'OCT',
+		'NOV',
+		'DEC',
+	];
 
-	const month = facebookDates.indexOf(dateToConvert.substring(0,3));
+	const month = facebookDates.indexOf(dateToConvert.substring(0, 3));
 	const day = dateToConvert.substring(3);
 	const date = new Date(new Date().getFullYear(), month, day);
 
 	const isPastEvent = new Date() > date; // check if date is in the past
 	const isSoonEvent = new Date().getMonth() + 3 - date.getMonth(); // check if event occurs in less than 3 month
 
-	const result = isSoonEvent >= 0 && isSoonEvent <= 3 && !isPastEvent ? true : false;
+	const result =
+		isSoonEvent >= 0 && isSoonEvent <= 3 && !isPastEvent ? true : false;
 
 	return result;
 };
