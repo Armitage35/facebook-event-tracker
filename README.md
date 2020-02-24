@@ -21,5 +21,12 @@ This app lets you declare which pages to track and get upcoming, recurring and p
 1. Install dependancies using `yarn`
 1. Run `yarn start`
 
+### Create a permanant shortcut to the app
+
+1. Open `~/.bashrc` or `~/.zshrc`
+1. Add `alias facebook-event-tracker='node {WHERE YOU INSTALLED THE APP}/facebook-event-tracker/cli.js'` in your alias section
+1. Refresh your settings by running source `~/.bashrc` or source `~/.zshrc`
+1. Run `facebook-event-tracker`
+
 ---
 Brought to you by [Armitage](https://armitageweb.net) and made with :heart: in beautiful Montreal
