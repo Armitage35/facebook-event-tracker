@@ -1,11 +1,10 @@
 const strings = require('../strings.json');
 const inquirer = require('inquirer');
-const askForPreferences = require('./askForPreferences');
-
-const crawlFacebook = require('../crawlFacebook');
 
 const settings = require('../appSettings');
 
+const askForPreferences = require('./askForPreferences');
+const crawlFacebook = require('../crawlFacebook');
 
 const welcomeUser = () => {
 	inquirer.prompt([{

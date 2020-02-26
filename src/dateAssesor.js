@@ -1,3 +1,5 @@
+const settings = require('./appSettings');
+
 const dateAssesor = (dateToConvert) => {
 	const facebookDates = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
@@ -8,7 +10,7 @@ const dateAssesor = (dateToConvert) => {
 	const isPastEvent = new Date() > date; // check if date is in the past
 	const isSoonEvent = new Date().getMonth() + 3 - date.getMonth(); // check if event occurs in less than 3 month
 
-	const result = isSoonEvent >= 0 && isSoonEvent <= 3 && !isPastEvent ? true : false;
+	const result = isSoonEvent >= 0 && isSoonEvent <= settings.maxMonthInFuture && !isPastEvent ? true : false;
 
 	return result;
 };

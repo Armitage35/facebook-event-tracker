@@ -1,9 +1,10 @@
 const fs = require('fs');
 const strings = require('./strings.json');
-const welcomeUser = require('./wizzard/welcomeUser');
-const addPagesToFollow = require('./wizzard/addPagesToFollow');
 
 const settings = require('./appSettings');
+
+const welcomeUser = require('./wizzard/welcomeUser');
+const addPagesToFollow = require('./wizzard/addPagesToFollow');
 
 const intializeApp = () => {
 	if (fs.existsSync(settings.pathToSavedPages)) {
