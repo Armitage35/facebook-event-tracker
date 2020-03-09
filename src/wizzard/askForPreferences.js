@@ -1,9 +1,9 @@
 const inquirer = require('inquirer');
 const strings = require('../strings.json');
 
-const resetPreferences = require('./resetPreferences');
 const addPagesToFollow = require('./addPagesToFollow');
 const removePages = require('./removePages');
+const resetPreferences = require('./resetPreferences');
 
 const askForPreferences = () => {
 	inquirer.prompt([{

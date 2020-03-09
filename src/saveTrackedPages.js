@@ -1,5 +1,5 @@
 const fs = require('fs');
-const pathToSavedPages = './src/pages.csv';
+const pathToSavedPages = './pages.csv';
 const strings = require('./strings.json');
 
 const settings = require('./appSettings');

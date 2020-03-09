@@ -3,8 +3,8 @@ const strings = require('../strings.json');
 
 const settings = require('../appSettings');
 
-const welcomeUser = require('./welcomeUser');
 const saveTrackedPages = require('../saveTrackedPages');
+const welcomeUser = require('./welcomeUser');
 
 const resetPreferences = () => {
 	inquirer.prompt([{
