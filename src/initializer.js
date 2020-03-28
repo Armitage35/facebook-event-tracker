@@ -10,7 +10,7 @@ const intializeApp = () => {
 	if (fs.existsSync(settings.pathToSavedPages)) {
 		settings.pages = fs.readFile(settings.pathToSavedPages, 'utf8', function(err, contents) {
 			if (err) {
-				console.log(strings.english.error.standard);
+				console.log(err);
 			} else {
 				settings.pages = contents.split(',');
 				welcomeUser();

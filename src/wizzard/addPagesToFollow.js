@@ -13,7 +13,7 @@ const addPagesToFollow = () => {
 		message: strings.english.welcomeWizzard.addPages.question,
 		validate: function (value) {
 			let pass = value.match(
-				/[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/
+				/[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/ //lgtm [js/regex/duplicate-in-character-class]
 			);
 			if (pass) {
 				return true;
