@@ -12,11 +12,10 @@ const crawlFacebook = async (pages, parallel) => {
 	const spinner = ora(strings.english.success.crawlingStarted).start();
 	setTimeout(() => {
 		spinner.color = 'blue';
-		spinner.text =`${strings.english.success.crawlingStarted}\n`;
+		spinner.text = `${strings.english.success.crawlingStarted}\n`;
 	}, 1000);
 
 	for (let i = 0; i < pages.length; i += parallel) {
-
 		const browser = await puppeteer.launch();
 		const context = await browser.createIncognitoBrowserContext();
 		const page = await context.newPage();
@@ -33,52 +32,94 @@ const crawlFacebook = async (pages, parallel) => {
 			let elem = i + j;
 
 			if (pages[elem] != undefined) {
-				promises.push(browser.newPage().then(async page => {
-					try {
-						await page.goto(pages[elem]);
+				promises.push(
+					browser.newPage().then(async page => {
+						try {
+							await page.goto(pages[elem]);
 
-						events.recurringEvents.titles = await page.evaluate(
-							() => [...document.querySelectorAll('._2l3f')].map(elem => elem.innerText.replace(/\n/g, ''))
-						);
+							events.recurringEvents.titles = await page.evaluate(
+								() =>
+									[
+										...document.querySelectorAll('._2l3f'),
+									].map(elem =>
+										elem.innerText.replace(/\n/g, '')
+									)
+							);
 
-						events.recurringEvents.descriptions = await page.evaluate(
-							() => [...document.querySelectorAll('._4etw')].map(elem => elem.innerText.replace(/\n/g, '').replace('More', ''))
-						);
+							events.recurringEvents.descriptions = await page.evaluate(
+								() =>
+									[
+										...document.querySelectorAll('._4etw'),
+									].map(elem =>
+										elem.innerText
+											.replace(/\n/g, '')
+											.replace('More', '')
+									)
+							);
 
-						events.recurringEvents.dates = await page.evaluate(
-							() => [...document.querySelectorAll('._5x8v')].map(elem => elem.innerText.replace(/\n/g, ''))
-						);
+							events.recurringEvents.dates = await page.evaluate(
+								() =>
+									[
+										...document.querySelectorAll('._5x8v'),
+									].map(elem =>
+										elem.innerText.replace(/\n/g, '')
+									)
+							);
 
-						events.recurringEvents.link = await page.evaluate(
-							() => [...document.querySelectorAll('._1b-b > a')].map(elem => elem.getAttribute('href'))
-						);
+							events.recurringEvents.link = await page.evaluate(
+								() =>
+									[
+										...document.querySelectorAll(
+											'._1b-b > a'
+										),
+									].map(elem => elem.getAttribute('href'))
+							);
 
-						events.pastAndUpcoming.titles = await page.evaluate(
-							() => [...document.querySelectorAll('._50f7')].map(elem => elem.innerText.replace(/\n/g, ''))
-						);
+							events.pastAndUpcoming.titles = await page.evaluate(
+								() =>
+									[
+										...document.querySelectorAll('._50f7'),
+									].map(elem =>
+										elem.innerText.replace(/\n/g, '')
+									)
+							);
 
-						events.pastAndUpcoming.dates = await page.evaluate(
-							() => [...document.querySelectorAll('._5a5i')].map(elem => elem.innerText.replace(/\n/g, ''))
-						);
+							events.pastAndUpcoming.dates = await page.evaluate(
+								() =>
+									[
+										...document.querySelectorAll('._5a5i'),
+									].map(elem =>
+										elem.innerText.replace(/\n/g, '')
+									)
+							);
 
-						events.pastAndUpcoming.link = await page.evaluate(
-							() => [...document.querySelectorAll('._4dmk > a')].map(elem => elem.getAttribute('href'))
-						);
+							events.pastAndUpcoming.link = await page.evaluate(
+								() =>
+									[
+										...document.querySelectorAll(
+											'._4dmk > a'
+										),
+									].map(elem => elem.getAttribute('href'))
+							);
 
-						console.log(chalk.bold(await page.title() + '\n'));
-						spinner.stop();
+							console.log(
+								chalk.bold((await page.title()) + '\n')
+							);
+							spinner.stop();
 
-						displayEvents(events);
-
-					} catch (err) {
-						console.log('\n' + strings.english.error.parsingError);
-					}
-				}));
+							displayEvents(events);
+						} catch (err) {
+							console.log(
+								'\n' + strings.english.error.parsingError
+							);
+						}
+					})
+				);
 			}
 		}
 
 		await Promise.all(promises).catch(err => {
-		 	console.log('\n' + strings.english.error.parsingError);
+			console.log('\n' + strings.english.error.parsingError);
 		});
 		await browser.close();
 	}

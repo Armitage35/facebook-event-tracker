@@ -8,14 +8,18 @@ const addPagesToFollow = require('./wizzard/addPagesToFollow');
 
 const intializeApp = () => {
 	if (fs.existsSync(settings.pathToSavedPages)) {
-		settings.pages = fs.readFile(settings.pathToSavedPages, 'utf8', function(err, contents) {
-			if (err) {
-				console.log(err);
-			} else {
-				settings.pages = contents.split(',');
-				welcomeUser();
+		settings.pages = fs.readFile(
+			settings.pathToSavedPages,
+			'utf8',
+			function(err, contents) {
+				if (err) {
+					console.log(err);
+				} else {
+					settings.pages = contents.split(',');
+					welcomeUser();
+				}
 			}
-		});
+		);
 	} else {
 		fs.writeFile(settings.pathToSavedPages, '', function(err) {
 			if (err) {
