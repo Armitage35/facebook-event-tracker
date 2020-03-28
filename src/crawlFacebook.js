@@ -77,7 +77,9 @@ const crawlFacebook = async (pages, parallel) => {
 			}
 		}
 
-		await Promise.all(promises);
+		await Promise.all(promises).catch(err => {
+		 	console.log('\n' + strings.english.error.parsingError);
+		});
 		await browser.close();
 	}
 
