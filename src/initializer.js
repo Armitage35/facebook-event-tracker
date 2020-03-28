@@ -1,4 +1,4 @@
-const fs = require('fs/promises');
+const fs = require('fs');
 const strings = require('./strings.json');
 
 const settings = require('./appSettings');
