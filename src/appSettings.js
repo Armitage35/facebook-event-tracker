@@ -1,7 +1,9 @@
+const path = require('path');
+
 const settings = {
 	parallel : 4, // handles how many tabs Chrome will open at once
 	pages : [],
-	pathToSavedPages : './src/pages.csv',
+	pathToSavedPages : path.join(__dirname, 'pages.csv'),
 	maxMonthInFuture: 3
 };
 
