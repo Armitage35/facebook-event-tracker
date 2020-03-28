@@ -19,7 +19,7 @@ const intializeApp = () => {
 	} else {
 		fs.writeFile(settings.pathToSavedPages, '', function(err) {
 			if (err) {
-				console.log(strings.english.error.standard);
+				console.log(err);
 			}
 			console.log(strings.english.onboarding);
 			addPagesToFollow();
