@@ -3,6 +3,7 @@ const strings = require('./strings.json');
 
 const settings = require('./appSettings');
 
+
 const saveTrackedPages = () => {
 	let formattedPages = settings.pages.toString().replace(/\n/g, '');
 
