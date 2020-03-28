@@ -81,7 +81,6 @@ const crawlFacebook = async (pages, parallel) => {
 			console.log('\n' + strings.english.error.parsingError);
 		});
 		await browser.close();
-		console.log(events);
 	}
 
 	console.log('\n' + strings.english.success.crawlingCompleted);
