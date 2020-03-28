@@ -8,11 +8,9 @@ const dateAssesor = (dateToConvert) => {
 	const date = new Date(new Date().getFullYear(), month, day);
 
 	const isPastEvent = new Date() > date; // check if date is in the past
-	const isSoonEvent = new Date().getMonth() + 3 - date.getMonth(); // check if event occurs in less than 3 month
+	const monthDelta = new Date().getMonth() - date.getMonth();
 
-	const result = isSoonEvent >= 0 && isSoonEvent <= settings.maxMonthInFuture && !isPastEvent ? true : false;
-
-	return result;
+	return monthDelta >= 0 && monthDelta <= settings.maxMonthInFuture && !isPastEvent;
 };
 
 module.exports = dateAssesor;
