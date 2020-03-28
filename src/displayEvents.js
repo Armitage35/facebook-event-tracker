@@ -1,9 +1,12 @@
 const chalk = require('chalk');
 const terminalLink = require('terminal-link');
 
+const strings = require('./strings.json');
+
 const dateAssesor = require('./dateAssesor');
 
 const displayEvents = (events) => {
+	let pageHasEventsToDisplay = false;
 	try {
 		for (let i = 0; i < events.recurringEvents.descriptions.length; i++) {
 			let j = i + 1;
@@ -24,6 +27,8 @@ const displayEvents = (events) => {
 				)
 			);
 			console.log('\n');
+
+			pageHasEventsToDisplay = true;
 		}
 
 		for (let i = 0; i < events.pastAndUpcoming.titles.length; i++) {
@@ -40,10 +45,17 @@ const displayEvents = (events) => {
 					)
 				);
 				console.log('\n');
+
+				pageHasEventsToDisplay = true;
 			}
 		}
 	} catch (err) {
 		console.log(err);
+	}
+
+	if (!pageHasEventsToDisplay) {
+		console.log(`${strings.english.success.noPageToDisplay}
+		`);
 	}
 };
 
