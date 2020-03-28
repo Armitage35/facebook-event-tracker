@@ -77,10 +77,11 @@ const crawlFacebook = async (pages, parallel) => {
 			}
 		}
 
-		await Promise.all(promises).catch(err => {
-		 	console.log('\n' + strings.english.error.parsingError);
+		await Promise.all(promises).catch(() => {
+			console.log('\n' + strings.english.error.parsingError);
 		});
 		await browser.close();
+		console.log(events);
 	}
 
 	console.log('\n' + strings.english.success.crawlingCompleted);

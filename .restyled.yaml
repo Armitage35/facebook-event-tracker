@@ -1,5 +1,5 @@
 # Do anything at all?
-enabled: true
+enabled: false
 
 # Push the style fixes directly to the original PR
 auto: false
