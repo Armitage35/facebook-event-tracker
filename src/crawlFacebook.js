@@ -12,7 +12,7 @@ const crawlFacebook = async (pages, parallel) => {
 	const spinner = ora(strings.english.success.crawlingStarted).start();
 	setTimeout(() => {
 		spinner.color = 'blue';
-		spinner.text = strings.english.success.crawlingStarted + '\n';
+		spinner.text =`${strings.english.success.crawlingStarted}\n`;
 	}, 1000);
 
 	for (let i = 0; i < pages.length; i += parallel) {
