@@ -68,6 +68,8 @@ const crawlFacebook = async (pages, parallel) => {
 
 						events.pageName = await page.title();
 
+						events.pageName = events.pageName.replace(' - Events | Facebook', '');
+
 						console.log(chalk.bold(events.pageName + '\n'));
 						spinner.stop();
 
