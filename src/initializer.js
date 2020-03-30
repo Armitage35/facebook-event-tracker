@@ -1,10 +1,11 @@
 const fs = require('fs');
+const settings = require('./appSettings');
 const strings = require('./strings.json');
 
-const settings = require('./appSettings');
-
-const wizzard = require('./wizzard/wizzard');
 const addPagesToFollow = require('./wizzard/addPagesToFollow');
+const wizzard = require('./wizzard/wizzard');
+
+const generateGoogleCalendarLink = require('./calendarLinkGenerator');
 
 const intializeApp = () => {
 	if (fs.existsSync(settings.pathToSavedPages)) {
@@ -26,5 +27,7 @@ const intializeApp = () => {
 		});
 	}
 };
+
+// console.log(generateGoogleCalendarLink('name', '20190227T104500/20190227T104500', 'location'));
 
 module.exports = intializeApp;
