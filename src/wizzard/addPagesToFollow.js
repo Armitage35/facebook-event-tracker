@@ -2,7 +2,7 @@ const inquirer = require('inquirer');
 const strings = require('../strings.json');
 
 const saveTrackedPages = require('../saveTrackedPages');
-const addAdditionalPagesToFollow = require('./addAdditionalPagesToFollow');
+const crawlFacebook = require('../crawlFacebook');
 
 const settings = require('../appSettings');
 
@@ -25,6 +25,21 @@ const addPagesToFollow = () => {
 		settings.pages = [...settings.pages, answers.pages];
 		saveTrackedPages();
 		addAdditionalPagesToFollow();
+	});
+};
+
+const addAdditionalPagesToFollow = () => {
+	inquirer.prompt([{
+		type: 'list',
+		name: 'nextStep',
+		message: strings.english.welcomeWizzard.addPages.nextStep.question,
+		choices: strings.english.welcomeWizzard.addPages.nextStep.answers
+	}]).then(answers => {
+		if (answers.nextStep === strings.english.welcomeWizzard.addPages.nextStep.answers[0]) {
+			addPagesToFollow();
+		} else {
+			crawlFacebook(settings.pages, settings.parallel);
+		}
 	});
 };
 
