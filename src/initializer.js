@@ -3,7 +3,7 @@ const strings = require('./strings.json');
 
 const settings = require('./appSettings');
 
-const welcomeUser = require('./wizzard/welcomeUser');
+const wizzard = require('./wizzard/wizzard');
 const addPagesToFollow = require('./wizzard/addPagesToFollow');
 
 const intializeApp = () => {
@@ -13,7 +13,7 @@ const intializeApp = () => {
 				console.log(err);
 			} else {
 				settings.pages = contents.split(',');
-				welcomeUser();
+				wizzard();
 			}
 		});
 	} else {
