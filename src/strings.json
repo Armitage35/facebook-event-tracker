@@ -49,6 +49,13 @@
 			"crawlingStarted": "Crawling launched 🚀",
 			"noPageToDisplay": "This page does not have any events for now 😕"
 		},
-		"onboarding": "✋ Hello user and thank you for using this application. First, let's find out which pages you want to know about"
+		"onboarding": "✋ Hello user and thank you for using this application. First, let's find out which pages you want to know about",
+		"displayEvents": {
+			"link": "Link to the event",
+			"addToCal": "Add to your Google Calendar",
+			"title" : "Title:",
+			"date": "Date:",
+			"description": "Description:"
+		}
 	}
 }

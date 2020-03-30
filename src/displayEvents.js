@@ -12,18 +12,18 @@ const displayEvents = (events) => {
 		for (let i = 0; i < events.recurringEvents.descriptions.length; i++) {
 			let j = i + 1;
 
-			console.log(`${chalk.underline('Title:')} ${events.recurringEvents.titles[i]}`);
-			console.log(`${chalk.underline('Description:')} ${events.recurringEvents.descriptions[i]}`);
+			console.log(`${chalk.underline(strings.english.displayEvents.title)} ${events.recurringEvents.titles[i]}`);
+			console.log(`${chalk.underline(strings.english.displayEvents.description)} ${events.recurringEvents.descriptions[i]}`);
 
 			if (i === 0) {
-				console.log(`${chalk.underline('Date:')} ${events.recurringEvents.dates[i]} & ${events.recurringEvents.dates[j]}`);
+				console.log(`${chalk.underline(strings.english.displayEvents.date)} ${events.recurringEvents.dates[i]} & ${events.recurringEvents.dates[j]}`);
 			} else {
-				console.log(`${chalk.underline('Date:')} ${events.recurringEvents.dates[i * 2]} & ${events.recurringEvents.dates[i * 2 + 1]}`);
+				console.log(`${chalk.underline(strings.english.displayEvents.date)} ${events.recurringEvents.dates[i * 2]} & ${events.recurringEvents.dates[i * 2 + 1]}`);
 			}
 			console.log(
 				chalk.blue(
 					chalk.underline(
-						terminalLink('Link to the event', 'https://facebook.com' + events.recurringEvents.link[i])
+						terminalLink(strings.english.displayEvents.link, 'https://facebook.com' + events.recurringEvents.link[i])
 					)
 				)
 			);
@@ -36,14 +36,14 @@ const displayEvents = (events) => {
 			const shouldEventBeDisplayed = dateAssesor(events.pastAndUpcoming.dates[i]);
 
 			if (shouldEventBeDisplayed) {
-				console.log(`${chalk.underline('Title:')} ${events.pastAndUpcoming.titles[i]}`);
-				console.log(`${chalk.underline('Date:')} ${events.pastAndUpcoming.dates[i]}`);
+				console.log(`${chalk.underline(strings.english.displayEvents.title)} ${events.pastAndUpcoming.titles[i]}`);
+				console.log(`${chalk.underline(strings.english.displayEvents.date)} ${events.pastAndUpcoming.dates[i]}`);
 				console.log(
 					chalk.blue(
 						chalk.underline(
-							terminalLink('Link to the event', 'https://facebook.com' + events.pastAndUpcoming.link[i])
+							terminalLink(strings.english.displayEvents.link, 'https://facebook.com' + events.pastAndUpcoming.link[i])
 						), ' | ',
-						terminalLink('Add to your Google Calendar', generateGoogleCalendarLink(events.pastAndUpcoming.titles[i], events.pastAndUpcoming.dates[i]))
+						terminalLink(strings.english.displayEvents.addToCal, generateGoogleCalendarLink(events.pastAndUpcoming.titles[i], events.pastAndUpcoming.dates[i]))
 					)
 				);
 				console.log('\n');
