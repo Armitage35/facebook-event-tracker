@@ -1,11 +1,8 @@
 const settings = require('./appSettings');
+const dateConvertor = require('./dateConvertor');
 
-const dateAssesor = (dateToConvert) => {
-	const facebookDates = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-
-	const month = facebookDates.indexOf(dateToConvert.substring(0,3));
-	const day = dateToConvert.substring(3);
-	const date = new Date(new Date().getFullYear(), month, day);
+const dateAssesor = (dateToAssess) => {
+	const date = dateConvertor(dateToAssess);
 
 	const isPastEvent = new Date() > date; // check if date is in the past
 	const monthDelta = date.getMonth() - new Date().getMonth() ;

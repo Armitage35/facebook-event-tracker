@@ -23,6 +23,7 @@ const crawlFacebook = async (pages, parallel) => {
 		page.setJavaScriptEnabled(false);
 
 		let events = {
+			pageName: '',
 			recurringEvents: {},
 			pastAndUpcoming: {},
 		};
@@ -65,7 +66,11 @@ const crawlFacebook = async (pages, parallel) => {
 							() => [...document.querySelectorAll('._4dmk > a')].map(elem => elem.getAttribute('href'))
 						);
 
-						console.log(chalk.bold(await page.title() + '\n'));
+						events.pageName = await page.title();
+
+						events.pageName = events.pageName.replace(' - Events | Facebook', '');
+
+						console.log(chalk.bold(events.pageName + '\n'));
 						spinner.stop();
 
 						displayEvents(events);
