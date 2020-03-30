@@ -47,7 +47,7 @@
 		"success": {
 			"crawlingCompleted": "Crawling completed 👍",
 			"crawlingStarted": "Crawling launched 🚀",
-			"noPageToDisplay": "This page dooes not have any events for now 😕"
+			"noPageToDisplay": "This page does not have any events for now 😕"
 		},
 		"onboarding": "✋ Hello user and thank you for using this application. First, let's find out which pages you want to know about"
 	}

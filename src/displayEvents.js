@@ -4,6 +4,7 @@ const terminalLink = require('terminal-link');
 const strings = require('./strings.json');
 
 const dateAssesor = require('./dateAssesor');
+const generateGoogleCalendarLink = require('./calendarLinkGenerator');
 
 const displayEvents = (events) => {
 	let pageHasEventsToDisplay = false;
@@ -41,7 +42,8 @@ const displayEvents = (events) => {
 					chalk.blue(
 						chalk.underline(
 							terminalLink('Link to the event', 'https://facebook.com' + events.pastAndUpcoming.link[i])
-						)
+						), ' | ',
+						terminalLink('Add to your Google Calendar', generateGoogleCalendarLink(events.pastAndUpcoming.titles[i], events.pastAndUpcoming.dates[i]))
 					)
 				);
 				console.log('\n');
