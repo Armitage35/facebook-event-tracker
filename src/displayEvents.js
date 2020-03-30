@@ -43,7 +43,7 @@ const displayEvents = (events) => {
 						chalk.underline(
 							terminalLink(strings.english.displayEvents.link, 'https://facebook.com' + events.pastAndUpcoming.link[i])
 						), ' | ',
-						terminalLink(strings.english.displayEvents.addToCal, generateGoogleCalendarLink(events.pastAndUpcoming.titles[i], events.pastAndUpcoming.dates[i]))
+						terminalLink(strings.english.displayEvents.addToCal, generateGoogleCalendarLink(events.pastAndUpcoming.titles[i], events.pastAndUpcoming.dates[i], events.pageName))
 					)
 				);
 				console.log('\n');

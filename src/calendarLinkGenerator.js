@@ -1,6 +1,6 @@
 const dateConvertor = require('./dateConvertor');
 
-const generateGoogleCalendarLink = (rawName, rawDate) => {
+const generateGoogleCalendarLink = (rawName, rawDate, rawPlace) => {
 	const eventName = encodeURI(rawName);
 	let eventDate = dateConvertor(rawDate);
 
@@ -10,7 +10,7 @@ const generateGoogleCalendarLink = (rawName, rawDate) => {
 	// The +1 below is required to make Google understand this is a full day event
 	eventDate = `${eventDate.getFullYear()}${addAZero(eventMonth)}${addAZero(eventDay)}/${eventDate.getFullYear()}${addAZero(eventMonth)}${addAZero(eventDay) + 1}`;
 
-	const link = `https://www.google.com/calendar/render?action=TEMPLATE&text=${eventName}&dates=${eventDate}`;
+	const link = `https://www.google.com/calendar/render?action=TEMPLATE&text=${eventName}&dates=${eventDate}&location=${encodeURI(rawPlace)}`;
 
 	return link;
 };
