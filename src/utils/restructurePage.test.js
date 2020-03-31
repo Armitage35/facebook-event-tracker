@@ -11,5 +11,5 @@ test('Asses that we only save a Facebook event page', () => {
 	expect(missingEvent).toBe('https://www.facebook.com/pg/0gravite/events/');
 
 	const lazyUrl = restructurePage('https://www.facebook.com/pg/0gravite');
-	expect(missingEvent).toBe('https://www.facebook.com/pg/0gravite/events/');
+	expect(lazyUrl).toBe('https://www.facebook.com/pg/0gravite/events/');
 });
