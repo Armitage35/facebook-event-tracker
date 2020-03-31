@@ -19,7 +19,8 @@
 	},
 	"scripts": {
 		"start": "node cli.js",
-		"circular": "madge cli.js  --image graph.svg"
+		"circular": "madge cli.js  --image graph.svg",
+		"test": "jest"
 	},
 	"devDependencies": {
 		"eslint": "^6.8.0",
