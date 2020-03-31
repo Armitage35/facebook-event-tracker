@@ -3,8 +3,8 @@ const terminalLink = require('terminal-link');
 
 const strings = require('./strings.json');
 
-const dateAssesor = require('./dateAssesor');
-const generateGoogleCalendarLink = require('./calendarLinkGenerator');
+const dateAssesor = require('./dateUtils/dateAssesor');
+const generateGoogleCalendarLink = require('./calendarLinkGenerator/calendarLinkGenerator');
 
 const displayEvents = (events) => {
 	let pageHasEventsToDisplay = false;

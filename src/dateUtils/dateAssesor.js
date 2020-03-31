@@ -1,4 +1,4 @@
-const settings = require('./appSettings');
+const settings = require('../appSettings');
 const dateConvertor = require('./dateConvertor');
 
 const dateAssesor = (dateToAssess) => {

@@ -1,10 +1,10 @@
-const puppeteer = require('puppeteer');
-const clear = require('clear');
 const chalk = require('chalk');
+const clear = require('clear');
 const ora = require('ora');
+const puppeteer = require('puppeteer');
 
-const strings = require('./strings.json');
 const displayEvents = require('./displayEvents');
+const strings = require('./strings.json');
 
 const crawlFacebook = async (pages, parallel) => {
 	clear();
