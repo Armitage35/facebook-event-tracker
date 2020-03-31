@@ -1,10 +1,13 @@
 const inquirer = require('inquirer');
 const strings = require('../strings.json');
 
-const saveTrackedPages = require('../saveTrackedPages');
 const crawlFacebook = require('../crawlFacebook');
+const saveTrackedPages = require('../saveTrackedPages');
 
 const settings = require('../appSettings');
+
+// eslint-disable-next-line no-useless-escape
+const isFacebook = /(http(s)?:\/\/.)?(www\.)?[facebook.com]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&\/\/=]*)/; // lgtm [js/regex/duplicate-in-character-class]
 
 const addPagesToFollow = () => {
 	inquirer.prompt([{
@@ -12,9 +15,7 @@ const addPagesToFollow = () => {
 		name: 'pages',
 		message: strings.english.welcomeWizzard.addPages.question,
 		validate: function (value) {
-			let pass = value.match(
-				/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/g // lgtm [js/regex/duplicate-in-character-class]
-			);
+			let pass = value.match(isFacebook);// lgtm [js/regex/duplicate-in-character-class]
 			if (pass) {
 				return true;
 			} else {
