@@ -18,7 +18,7 @@
 			},
 			"addPages": {
 				"question": "Input the individual pages you want to follow",
-				"inputValidation": "Please enter a valid URL",
+				"inputValidation": "Please enter a valid Facebook page URL",
 				"nextStep": {
 					"question": "Do you want to add other pages to follow?",
 					"answers": [

@@ -1,10 +1,12 @@
 const inquirer = require('inquirer');
 const strings = require('../strings.json');
 
-const saveTrackedPages = require('../saveTrackedPages');
 const crawlFacebook = require('../crawlFacebook');
+const saveTrackedPages = require('../saveTrackedPages');
 
 const settings = require('../appSettings');
+
+const regex = /(http(s)?:\/\/.)?(www\.)?(facebook)\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)/;
 
 const addPagesToFollow = () => {
 	inquirer.prompt([{
@@ -12,17 +14,18 @@ const addPagesToFollow = () => {
 		name: 'pages',
 		message: strings.english.welcomeWizzard.addPages.question,
 		validate: function (value) {
-			let pass = value.match(
-				/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/g // lgtm [js/regex/duplicate-in-character-class]
-			);
-			if (pass) {
+			const isFacebook = value.match(regex);
+
+			if (isFacebook) {
 				return true;
 			} else {
 				return strings.english.welcomeWizzard.addPages.inputValidation;
 			}
 		}
 	}]).then(answers => {
-		settings.pages = [...settings.pages, answers.pages];
+		const updatedPage = restructurePage(answers.pages);
+
+		settings.pages = [...settings.pages, updatedPage];
 		saveTrackedPages();
 		addAdditionalPagesToFollow();
 	});
@@ -41,6 +44,20 @@ const addAdditionalPagesToFollow = () => {
 			crawlFacebook(settings.pages, settings.parallel);
 		}
 	});
+};
+
+const restructurePage = (sourceUrl) => {
+	let updatedUrl = sourceUrl;
+
+	if (!updatedUrl.endsWith('/')) {
+		updatedUrl = `${updatedUrl}/`;
+	}
+
+	if (!updatedUrl.endsWith('events/') && !updatedUrl.endsWith('events')) {
+		updatedUrl = `${updatedUrl}events/`;
+	}
+
+	return updatedUrl;
 };
 
 module.exports = addPagesToFollow;
