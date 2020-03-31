@@ -1,8 +1,9 @@
 const inquirer = require('inquirer');
-const strings = require('../strings.json');
 
 const crawlFacebook = require('../crawlFacebook');
+const restructurePage = require('../utils/restructurePage');
 const saveTrackedPages = require('../saveTrackedPages');
+const strings = require('../strings.json');
 
 const settings = require('../appSettings');
 
@@ -44,20 +45,6 @@ const addAdditionalPagesToFollow = () => {
 			crawlFacebook(settings.pages, settings.parallel);
 		}
 	});
-};
-
-const restructurePage = (sourceUrl) => {
-	let updatedUrl = sourceUrl;
-
-	if (!updatedUrl.endsWith('/')) {
-		updatedUrl = `${updatedUrl}/`;
-	}
-
-	if (!updatedUrl.endsWith('events/') && !updatedUrl.endsWith('events')) {
-		updatedUrl = `${updatedUrl}events/`;
-	}
-
-	return updatedUrl;
 };
 
 module.exports = addPagesToFollow;
