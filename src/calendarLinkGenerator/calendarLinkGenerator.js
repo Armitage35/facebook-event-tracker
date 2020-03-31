@@ -1,4 +1,4 @@
-const dateConvertor = require('./dateConvertor');
+const dateConvertor = require('../dateConvertor');
 
 const generateGoogleCalendarLink = (rawName, rawDate, rawPlace) => {
 	let eventDate = dateConvertor(rawDate);
