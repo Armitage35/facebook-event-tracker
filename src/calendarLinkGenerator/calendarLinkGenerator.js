@@ -1,4 +1,5 @@
-const dateConvertor = require('../dateConvertor');
+const dateConvertor = require('../dateUtils/dateConvertor');
+const addAZero = require('../utils/addAZero');
 
 const generateGoogleCalendarLink = (rawName, rawDate, rawPlace) => {
 	let eventDate = dateConvertor(rawDate);
@@ -14,15 +15,6 @@ const generateGoogleCalendarLink = (rawName, rawDate, rawPlace) => {
 	const link = `https://www.google.com/calendar/render?action=TEMPLATE&text=${eventName}&dates=${eventDate}&location=${eventPlace}`;
 
 	return link;
-};
-
-// This method is required to reflect the fact that Google calendar will only accept dates with two digits
-const addAZero = (valueToEvaluate) => {
-	if (valueToEvaluate < 10) {
-		valueToEvaluate = `0${valueToEvaluate}`;
-	}
-
-	return valueToEvaluate;
 };
 
 module.exports = generateGoogleCalendarLink;
