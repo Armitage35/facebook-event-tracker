@@ -7,7 +7,7 @@ const saveTrackedPages = require('../saveTrackedPages');
 const settings = require('../appSettings');
 
 // eslint-disable-next-line no-useless-escape
-const regex = /(http(s)?:\/\/.)?(www\.)?[facebook.com]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&\/\/=]*)/; // lgtm [js/regex/duplicate-in-character-class]
+const regex = /(http(s)?:\/\/.)?(www\.)?(facebook)\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&\/\/=]*)/; // lgtm [js/regex/duplicate-in-character-class]
 
 const addPagesToFollow = () => {
 	inquirer.prompt([{
