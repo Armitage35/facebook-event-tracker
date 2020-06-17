@@ -14,7 +14,7 @@
 		"clear": "^0.1.0",
 		"inquirer": "^7.0.4",
 		"ora": "^4.0.3",
-		"puppeteer": "^2.1.1",
+		"puppeteer": "^3.0.0",
 		"terminal-link": "^2.1.1"
 	},
 	"scripts": {
@@ -23,9 +23,9 @@
 		"test": "jest"
 	},
 	"devDependencies": {
-		"eslint": "^6.8.0",
-		"jest": "^25.2.4",
+		"eslint": "^7.0.0",
+		"jest": "^26.0.1",
 		"madge": "^3.8.0",
-		"prettier": "2.0.3"
+		"prettier": "2.0.5"
 	}
 }
