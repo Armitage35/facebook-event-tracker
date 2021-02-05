@@ -14,7 +14,7 @@
 		"clear": "^0.1.0",
 		"inquirer": "^7.0.4",
 		"ora": "^5.0.0",
-		"puppeteer": "^6.0.0",
+		"puppeteer": "^7.0.1",
 		"terminal-link": "^2.1.1"
 	},
 	"scripts": {
