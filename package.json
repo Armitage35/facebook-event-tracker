@@ -15,7 +15,7 @@
 		"inquirer": "^7.0.4",
 		"ora": "^5.0.0",
 		"puppeteer": "^6.0.0",
-		"terminal-link": "^2.1.1"
+		"terminal-link": "^3.0.0"
 	},
 	"scripts": {
 		"start": "node cli.js",
